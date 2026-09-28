@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Compartir Meta con nudge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13; --sup: #10161d; --sup-2: #151c25; --borde: #1f2833;
+    --texto: #c3c9cf; --texto-2: #8a949e; --titulo: #f4f6f7;
+    --naranja: #F2801E; --cian: #22D3EE; --verde: #34d399;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 17px/1.6 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; padding-inline: 18px; -webkit-font-smoothing: antialiased; }
+  .envoltura { max-width: 760px; margin: 0 auto; padding-block: 40px 90px; display: grid; gap: 28px; }
+  h1, h2, h3 { color: var(--titulo); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  p { margin: 0; }
+  a { color: var(--cian); }
+  button { font: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--cian); outline-offset: 3px; border-radius: 8px; }
+
+  .cabeza { display: grid; gap: 14px; position: relative; }
+  .cabeza::before { content: ""; position: absolute; inset: -60px -40px auto; height: 260px; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 60% at 15% 30%, rgba(242,128,30,.2), transparent 70%), radial-gradient(40% 60% at 85% 20%, rgba(34,211,238,.14), transparent 70%); }
+  .etiqueta { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2rem, 6vw, 2.9rem); line-height: 1.05; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 42%, var(--cian) 62% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bajada { font-size: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips span { font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 999px; background: var(--sup); box-shadow: inset 0 0 0 1px var(--borde); }
+
+  .progreso { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in oklab, var(--fondo) 88%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 12px 0; display: grid; gap: 8px; }
+  .progreso-txt { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--texto-2); }
+  .barra { height: 8px; border-radius: 4px; background: var(--sup-2); overflow: hidden; }
+  .barra i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--naranja), var(--cian)); transition: width .4s ease; }
+
+  .pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .paso { border-radius: 18px; background: var(--sup); box-shadow: inset 0 0 0 1px var(--borde); overflow: hidden; transition: box-shadow .25s ease, opacity .25s ease; }
+  .paso.actual { box-shadow: inset 0 0 0 1.5px var(--naranja), 0 20px 50px -30px var(--naranja); }
+  .paso.hecho { opacity: .72; }
+  .paso-cab { display: flex; align-items: center; gap: 14px; padding: 18px 20px; }
+  .num { width: 38px; height: 38px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--sup-2); color: var(--texto-2); box-shadow: inset 0 0 0 1.5px var(--borde); }
+  .paso.actual .num { background: var(--naranja); color: #1a0d05; box-shadow: none; }
+  .paso.hecho .num { background: var(--verde); color: #04130c; box-shadow: none; font-size: 0; }
+  .paso.hecho .num::before { content: "✓"; font-size: 18px; }
+  .paso-cab h2 { font-size: 19px; flex: 1; }
+  .paso-cuerpo { padding: 0 20px 20px 72px; display: grid; gap: 14px; }
+  .paso:not(.actual) .paso-cuerpo { display: none; }
+  .paso-cuerpo ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+  .paso-cuerpo li::marker { color: var(--naranja); font-weight: 700; }
+  .paso-cuerpo b { color: var(--titulo); }
+  @media (max-width: 560px) { .paso-cuerpo { padding-left: 20px; } }
+
+  .dato { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 14px; background: var(--sup-2); box-shadow: inset 0 0 0 1px var(--borde); }
+  .dato code { font: 600 20px/1 "JetBrains Mono", ui-monospace, Menlo, monospace; color: var(--titulo); letter-spacing: .04em; flex: 1; min-width: 200px; user-select: all; -webkit-user-select: all; }
+  .dato small { width: 100%; font-size: 13.5px; color: var(--texto-2); }
+  .btn { border: 0; border-radius: 999px; padding: 11px 18px; font-weight: 700; font-size: 15px; }
+  .btn.prim { background: var(--naranja); color: #1a0d05; }
+  .btn.sec { background: transparent; color: var(--titulo); box-shadow: inset 0 0 0 1.5px color-mix(in oklab, #fff 22%, transparent); }
+  .btn.link { background: none; color: var(--cian); padding: 6px 0; font-weight: 600; }
+  .acciones { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .abrir { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+
+  details { border-radius: 12px; background: color-mix(in oklab, var(--cian) 6%, var(--sup)); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--cian) 22%, transparent); }
+  summary { list-style: none; cursor: pointer; padding: 12px 16px; font-weight: 600; color: var(--titulo); font-size: 15.5px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "¿"; display: none; }
+  summary::after { content: " +"; color: var(--cian); }
+  details[open] summary::after { content: " −"; }
+  details p { padding: 0 16px 14px; font-size: 15.5px; }
+
+  .activos { display: grid; gap: 8px; }
+  .activo { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--sup-2); cursor: pointer; }
+  .activo input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--naranja); flex: none; }
+  .activo span { font-size: 15.5px; }
+  .activo em { display: block; font-style: normal; font-size: 13.5px; color: var(--texto-2); }
+
+  .fin { border-radius: 20px; padding: 28px; text-align: center; display: grid; gap: 12px; justify-items: center;
+    background: radial-gradient(60% 90% at 15% 0%, rgba(242,128,30,.3), transparent 70%), radial-gradient(60% 90% at 90% 100%, rgba(34,211,238,.24), transparent 70%), var(--sup); box-shadow: inset 0 0 0 1px var(--borde); }
+  .fin h2 { font-size: 26px; }
+  .fin[hidden] { display: none; }
+  .pie { font-size: 14px; color: var(--texto-2); text-align: center; }
+  .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; background: var(--verde); color: #04130c; font-weight: 700; padding: 10px 18px; border-radius: 999px; transition: .25s; pointer-events: none; }
+  .toast.ver { opacity: 1; transform: translate(-50%, 0); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <header class="cabeza">
+    <span class="etiqueta">Guía para Seba · Studio Complex</span>
+    <h1>Compartir la cuenta de Meta <span>con nudge</span></h1>
+    <p class="bajada">Son 5 pasos y lleva unos 10 minutos. No hay que pasar ninguna clave: nudge queda como socio del portfolio y vos seguís siendo el dueño de todo. Hacelo desde la compu cuando puedas; la guía recuerda por dónde ibas.</p>
+    <div class="chips"><span>⏱ 10 minutos</span><span>💻 Desde la compu</span><span>📱 Tené el celular a mano</span></div>
+  </header>
+
+  <div class="progreso" aria-live="polite">
+    <div class="progreso-txt"><span id="prog-txt">Paso 1 de 5</span><button class="btn link" id="reiniciar" type="button">Empezar de nuevo</button></div>
+    <div class="barra"><i id="barra"></i></div>
+  </div>
+
+  <ol class="pasos" id="pasos">
+
+    <li class="paso" data-paso="1">
+      <div class="paso-cab"><span class="num">1</span><h2>Abrí la configuración del negocio</h2></div>
+      <div class="paso-cuerpo">
+        <ol>
+          <li>Abrí la configuración de Meta Business (se abre en otra pestaña).</li>
+          <li>Arriba a la izquierda tiene que decir <b>Studio Complex</b>. Si dice otro nombre, tocalo y elegí Studio Complex.</li>
+        </ol>
+        <div class="acciones">
+          <a class="btn sec abrir" href="https://business.facebook.com/settings" target="_blank" rel="noopener">Abrir business.facebook.com/settings ↗</a>
+        </div>
+        <details><summary>Me pide iniciar sesión</summary><p>Entrá con tu Facebook de siempre, el mismo con el que manejás la página de Studio Complex.</p></details>
+        <details><summary>No me aparece Studio Complex en la lista</summary><p>Puede que el portfolio esté a nombre de otra persona. Avisale a Jorge con una captura y lo vemos.</p></details>
+        <div class="acciones"><button class="btn prim" type="button" data-sig>Listo, estoy en Studio Complex →</button></div>
+      </div>
+    </li>
+
+    <li class="paso" data-paso="2">
+      <div class="paso-cab"><span class="num">2</span><h2>Entrá a Socios</h2></div>
+      <div class="paso-cuerpo">
+        <ol>
+          <li>En el menú de la izquierda buscá <b>Usuarios</b>.</li>
+          <li>Adentro tocá <b>Socios</b>.</li>
+          <li>Tocá el botón azul <b>Agregar</b> y elegí <b>Dar a un socio acceso a tus activos</b>.</li>
+        </ol>
+        <details><summary>No encuentro "Usuarios" ni "Socios"</summary><p>Meta cambia los nombres seguido. Usá el buscador de la configuración (lupa arriba) y escribí "socios". Si igual no aparece, mandale captura del menú a Jorge.</p></details>
+        <details><summary>Me dice que no tengo permiso</summary><p>Hace falta ser administrador del portfolio. Si lo creaste vos, lo sos. Si no, hay que pedirle a quien lo creó que te dé control total.</p></details>
+        <div class="acciones"><button class="btn sec" type="button" data-ant>← Atrás</button><button class="btn prim" type="button" data-sig>Ya tengo la ventana de socio →</button></div>
+      </div>
+    </li>
+
+    <li class="paso" data-paso="3">
+      <div class="paso-cab"><span class="num">3</span><h2>Pegá el ID de nudge</h2></div>
+      <div class="paso-cuerpo">
+        <p>Te va a pedir el <b>identificador del portfolio comercial</b> del socio. Es este:</p>
+        <div class="dato">
+          <code id="id-nudge">1400236898200135</code>
+          <button class="btn prim" type="button" id="copiar">Copiar</button>
+          <small>Portfolio "Nudge digital". Al pegarlo, Meta tiene que mostrar ese nombre: si muestra otro, revisá que esté completo.</small>
+        </div>
+        <details><summary>Me dice que el ID no es válido</summary><p>Fijate que no haya quedado un espacio al principio o al final. Son 16 números.</p></details>
+        <div class="acciones"><button class="btn sec" type="button" data-ant>← Atrás</button><button class="btn prim" type="button" data-sig>Pegado, apareció Nudge digital →</button></div>
+      </div>
+    </li>
+
+    <li class="paso" data-paso="4">
+      <div class="paso-cab"><span class="num">4</span><h2>Elegí qué compartir</h2></div>
+      <div class="paso-cuerpo">
+        <p>Meta te muestra los activos por tipo. Marcá estos y tildá acá a medida que los vas haciendo:</p>
+        <div class="activos">
+          <label class="activo"><input type="checkbox" data-activo="cuenta"><span><b>Cuentas publicitarias:</b> la de Studio Complex<em>Con "Control total". Si no aparece, "Administrar campañas".</em></span></label>
+          <label class="activo"><input type="checkbox" data-activo="pagina"><span><b>Páginas:</b> Studio Complex<em>Con control total o "Contenido + anuncios".</em></span></label>
+          <label class="activo"><input type="checkbox" data-activo="ig"><span><b>Cuentas de Instagram:</b> la de Studio Complex<em>Con control total.</em></span></label>
+          <label class="activo"><input type="checkbox" data-activo="pixel"><span><b>Conjuntos de datos (píxel):</b> si hay alguno<em>Si no aparece ninguno, salteá este.</em></span></label>
+        </div>
+        <details><summary>No me deja elegir varios tipos a la vez</summary><p>Algunas versiones de Meta comparten un tipo por vez. Terminá con la cuenta publicitaria, guardá, y repetí desde el paso 2 para la página, Instagram y el píxel. El ID es el mismo.</p></details>
+        <details><summary>No aparece la cuenta publicitaria</summary><p>Puede que la cuenta esté a nombre de tu Facebook personal y no del portfolio. Avisale a Jorge con una captura de "Cuentas publicitarias" y lo resolvemos.</p></details>
+        <div class="acciones"><button class="btn sec" type="button" data-ant>← Atrás</button><button class="btn prim" type="button" data-sig>Listo, los compartí →</button></div>
+      </div>
+    </li>
+
+    <li class="paso" data-paso="5">
+      <div class="paso-cab"><span class="num">5</span><h2>Confirmá con el celular y avisá</h2></div>
+      <div class="paso-cuerpo">
+        <ol>
+          <li>Al guardar, Meta te puede pedir <b>confirmar que sos vos</b>: un código, una notificación en el celular o la llave de acceso. Es normal, aceptalo.</li>
+          <li>Sacale una captura a la pantalla final.</li>
+          <li>Mandásela a Jorge por el grupo. Con eso él termina lo de su lado.</li>
+        </ol>
+        <details><summary>Me pide un código y no me llega</summary><p>Elegí "Probar otra forma" y usá la notificación en la app de Facebook del celular.</p></details>
+        <div class="acciones"><button class="btn sec" type="button" data-ant>← Atrás</button><button class="btn prim" type="button" data-sig>Terminé ✓</button></div>
+      </div>
+    </li>
+  </ol>
+
+  <section class="fin" id="fin" hidden>
+    <h2>¡Listo, Seba! 🙌</h2>
+    <p>Mandale la captura a Jorge. En cuanto él asigne la cuenta de su lado, ya podemos armar y medir las campañas de Studio Complex desde nudge.</p>
+    <button class="btn sec" type="button" id="volver">Ver los pasos de nuevo</button>
+  </section>
+
+  <p class="pie">Nada de esto le da a nudge acceso a tu Facebook personal ni a tus claves. Podés quitar el acceso cuando quieras desde la misma sección Socios.</p>
+</div>
+<div class="toast" id="toast">Copiado</div>
+
+<script>
+(function () {
+  var TOTAL = 5, CLAVE = "sc-meta-socio";
+  var estado = { paso: 1, activos: {} };
+  try { var g = JSON.parse(localStorage.getItem(CLAVE)); if (g && g.paso) estado = g; } catch (e) {}
+  function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {} }
+
+  var pasos = document.querySelectorAll(".paso");
+  var fin = document.getElementById("fin");
+  function pintar() {
+    var p = estado.paso;
+    pasos.forEach(function (el) {
+      var n = +el.dataset.paso;
+      el.classList.toggle("actual", n === p);
+      el.classList.toggle("hecho", n < p);
+    });
+    fin.hidden = p <= TOTAL;
+    var hechos = Math.min(p - 1, TOTAL);
+    document.getElementById("barra").style.width = (hechos / TOTAL * 100) + "%";
+    document.getElementById("prog-txt").textContent = p > TOTAL ? "¡Terminado!" : "Paso " + p + " de " + TOTAL;
+    document.querySelectorAll("[data-activo]").forEach(function (c) { c.checked = !!estado.activos[c.dataset.activo]; });
+  }
+  function ir(p, scroll) {
+    estado.paso = p; guardar(); pintar();
+    var dest = p > TOTAL ? fin : document.querySelector('.paso[data-paso="' + p + '"]');
+    if (scroll && dest) dest.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("[data-sig]")) ir(estado.paso + 1, true);
+    if (e.target.closest("[data-ant]")) ir(Math.max(1, estado.paso - 1), true);
+    var cab = e.target.closest(".paso-cab");
+    if (cab) { var n = +cab.parentNode.dataset.paso; if (n < estado.paso) ir(n, false); }
+  });
+  document.getElementById("reiniciar").onclick = function () { estado = { paso: 1, activos: {} }; guardar(); pintar(); window.scrollTo(0, 0); };
+  document.getElementById("volver").onclick = function () { ir(1, true); };
+  document.querySelectorAll("[data-activo]").forEach(function (c) {
+    c.addEventListener("change", function () { estado.activos[c.dataset.activo] = c.checked; guardar(); });
+  });
+  var toast = document.getElementById("toast");
+  document.getElementById("copiar").onclick = function () {
+    var t = document.getElementById("id-nudge").textContent;
+    function ok() { toast.classList.add("ver"); setTimeout(function () { toast.classList.remove("ver"); }, 1500); }
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, sel); else sel();
+    function sel() { var r = document.createRange(); r.selectNodeContents(document.getElementById("id-nudge")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); toast.textContent = "Seleccionado: copialo"; ok(); }
+  };
+  pintar();
+})();
+</script>
+</body>
+</html>
