@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Studio Complex al 28/9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  body { -webkit-font-smoothing: antialiased; }
+  /* Página de una sola estética, la del sitio de Studio Complex: fondo
+     oscuro, naranja de marca y cian. Se fija a propósito en oscuro. */
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13;
+    --sup: #10161d;
+    --sup-2: #151c25;
+    --borde: #1f2833;
+    --texto: #c3c9cf;
+    --texto-2: #8a949e;
+    --titulo: #f4f6f7;
+    --naranja: #F2801E;
+    --cian: #22D3EE;
+    --verde: #34d399;
+    --ambar: #fbbf24;
+    --rojo: #f87171;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font: 16px/1.6 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding-inline: 20px;
+  }
+  .envoltura { max-width: 1040px; margin: 0 auto; padding-block: 48px 80px; display: grid; gap: 64px; }
+  a { color: var(--cian); text-underline-offset: 3px; }
+  a:hover { color: var(--naranja); }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--cian); outline-offset: 3px; border-radius: 6px; }
+  h1, h2, h3 { color: var(--titulo); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+  p { margin: 0; }
+  .mono { font-family: var(--mono); font-size: 12.5px; }
+
+  /* --- Encabezado --- */
+  .cabeza { display: grid; gap: 22px; position: relative; }
+  .cabeza::before {
+    content: ""; position: absolute; inset: -60px -40px auto -40px; height: 320px; z-index: -1;
+    background:
+      radial-gradient(40% 60% at 15% 30%, rgba(242,128,30,.20), transparent 70%),
+      radial-gradient(40% 60% at 85% 20%, rgba(34,211,238,.14), transparent 70%);
+    pointer-events: none;
+  }
+  .etiqueta { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.02; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 42%, var(--cian) 62% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bajada { font-size: 18px; max-width: 64ch; }
+  .accesos { display: flex; flex-wrap: wrap; gap: 10px; }
+  .accesos a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 14.5px; color: var(--titulo);
+    background: var(--sup); box-shadow: inset 0 0 0 1px var(--borde);
+  }
+  .accesos a:hover { box-shadow: inset 0 0 0 1px var(--naranja); color: var(--titulo); }
+  .accesos a::after { content: "↗"; color: var(--naranja); font-weight: 700; }
+
+  /* --- Resumen de los tres frentes --- */
+  .frentes { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .frente { background: var(--sup); border-radius: 16px; padding: 22px; display: grid; gap: 12px; align-content: start; box-shadow: inset 0 0 0 1px var(--borde); }
+  .frente h3 { font-size: 19px; }
+  .frente p { font-size: 15px; }
+  .estado { justify-self: start; font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; }
+  .estado.avanzado { color: var(--verde); background: rgba(52,211,153,.12); }
+  .estado.andando { color: var(--ambar); background: rgba(251,191,36,.12); }
+  .estado.definir { color: var(--rojo); background: rgba(248,113,113,.12); }
+  .cifras { display: flex; flex-wrap: wrap; gap: 8px 18px; padding-top: 12px; border-top: 1px solid var(--borde); }
+  .cifras div { display: grid; }
+  .cifras b { font-size: 22px; line-height: 1.1; color: var(--titulo); font-variant-numeric: tabular-nums; }
+  .cifras span { font-size: 12.5px; color: var(--texto-2); }
+
+  /* --- Secciones --- */
+  .seccion { display: grid; gap: 26px; }
+  .seccion > header { display: grid; gap: 8px; }
+  h2 { font-size: clamp(1.6rem, 3.6vw, 2.2rem); line-height: 1.1; }
+  .seccion > header p { max-width: 64ch; color: var(--texto-2); }
+
+  /* Línea de tiempo: la fecha es información, va en su columna */
+  .tiempo { display: grid; gap: 0; }
+  .hito { display: grid; grid-template-columns: 92px 1fr; gap: 20px; padding-block: 20px; border-top: 1px solid var(--borde); }
+  .hito:first-child { border-top: 0; padding-top: 0; }
+  .fecha { font-family: var(--mono); font-size: 13px; color: var(--naranja); padding-top: 3px; }
+  .hito h3 { font-size: 18px; margin-bottom: 8px; }
+  .hito ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+  .hito li::marker { color: var(--texto-2); }
+  .hito li b { color: var(--titulo); font-weight: 600; }
+  @media (max-width: 560px) { .hito { grid-template-columns: 1fr; gap: 6px; } }
+
+  /* Páginas de servicio */
+  .servicios { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 12px; }
+  .servicios a {
+    display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; text-decoration: none;
+    background: var(--sup-2); box-shadow: inset 0 0 0 1px var(--borde);
+  }
+  .servicios a b { color: var(--titulo); font-size: 15px; }
+  .servicios a span { color: var(--texto-2); font-size: 13px; }
+  .servicios a:hover { box-shadow: inset 0 0 0 1px var(--cian); }
+
+  /* Pendientes */
+  .grupo { display: grid; gap: 12px; }
+  .grupo h3 { font-size: 16px; font-weight: 700; color: var(--texto-2); text-transform: uppercase; letter-spacing: .1em; }
+  .pend { display: grid; gap: 10px; list-style: none; margin: 0; padding: 0; }
+  .pend li {
+    display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+    background: var(--sup); border-radius: 14px; padding: 16px 18px; box-shadow: inset 0 0 0 1px var(--borde);
+  }
+  .pend li p + p { margin-top: 4px; font-size: 14.5px; color: var(--texto-2); }
+  .pend li p:first-child { color: var(--titulo); font-weight: 600; }
+  .prio { font-size: 11.5px; font-weight: 700; padding: 4px 9px; border-radius: 6px; white-space: nowrap; margin-top: 2px; }
+  .prio.alta { color: #1a0d05; background: var(--naranja); }
+  .prio.media { color: var(--ambar); background: rgba(251,191,36,.12); }
+  .prio.baja { color: var(--texto-2); background: var(--sup-2); }
+  @media (max-width: 560px) { .pend li { grid-template-columns: 1fr; gap: 8px; } }
+
+  .nota { font-size: 14px; color: var(--texto-2); border-left: 2px solid var(--borde); padding-left: 14px; max-width: 70ch; }
+  footer { font-size: 13.5px; color: var(--texto-2); border-top: 1px solid var(--borde); padding-top: 22px; }
+</style>
+
+</head>
+<body>
+<div class="envoltura">
+
+  <header class="cabeza">
+    <span class="etiqueta">Estado del proyecto · lunes 28 de septiembre de 2026</span>
+    <h1>Studio Complex: <span>qué hicimos</span> y qué falta.</h1>
+    <p class="bajada">
+      Resumen para ponernos al día entre socios. Arriba, cómo está cada frente. Después, lo que se
+      hizo, por fecha. Al final, lo que falta, separado en lo que necesitamos decidir juntos y el
+      trabajo que queda de nuestro lado.
+    </p>
+    <nav class="accesos" aria-label="Accesos">
+      <a href="https://nudge-digital-lab.github.io/studio-complex-website/" target="_blank" rel="noopener">Sitio en vivo</a>
+      <a href="https://studio-complex-crm.vercel.app" target="_blank" rel="noopener">CRM</a>
+      <a href="https://nudge-digital-lab.github.io/studio-complex-website/project.html" target="_blank" rel="noopener">Casos de éxito</a>
+      <a href="https://nudge-digital-lab.github.io/studio-complex-website/servicio-desarrollo-web.html" target="_blank" rel="noopener">Una página de servicio</a>
+    </nav>
+  </header>
+
+  <section class="frentes" aria-label="Los tres frentes">
+    <article class="frente">
+      <span class="estado avanzado">Muy avanzado</span>
+      <h3>Sitio web</h3>
+      <p>Rediseñado sobre la plantilla, sin datos inventados, con casos reales y una página propia para cada servicio. Publicado en GitHub Pages.</p>
+      <div class="cifras">
+        <div><b>6</b><span>páginas de servicio</span></div>
+        <div><b>5</b><span>casos de éxito</span></div>
+        <div><b>6</b><span>notas en el blog</span></div>
+      </div>
+    </article>
+    <article class="frente">
+      <span class="estado andando">Andando, con integraciones pendientes</span>
+      <h3>CRM interno</h3>
+      <p>Prospectos, leads, clientes, portal del cliente, vencimientos y presupuestos. Arranca de cero: el primer dato que se cargue es real.</p>
+      <div class="cifras">
+        <div><b>7</b><span>módulos funcionando</span></div>
+        <div><b>2</b><span>usuarios (los socios)</span></div>
+      </div>
+    </article>
+    <article class="frente">
+      <span class="estado definir">Por definir</span>
+      <h3>Estructura de la empresa</h3>
+      <p>Está acordada la idea: cada socio con su sueldo fijo mensual y el resto queda como caja para reinvertir. Faltan los números y la figura societaria.</p>
+    </article>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-hecho">
+    <header>
+      <h2 id="t-hecho">Lo que se hizo en el sitio</h2>
+      <p>Todo está subido y publicado. Cada cambio tiene su registro en GitHub, con el detalle de qué se tocó y por qué.</p>
+    </header>
+
+    <div class="tiempo">
+      <div class="hito">
+        <span class="fecha">7 al 17/9</span>
+        <div>
+          <h3>Base: marca, textos y limpieza</h3>
+          <ul>
+            <li><b>Plantilla Tekmino elegida</b> como sitio definitivo. La landing rápida quedó publicada pero sin desarrollo.</li>
+            <li><b>Textos reposicionados</b> para empresas medianas de toda Latinoamérica, en "vos", sin "PyMEs" ni tono de infoproducto.</li>
+            <li><b>Nada inventado a la vista:</b> se sacaron contadores falsos, clientes de la plantilla, un mapa en Boston y páginas de ejemplo en inglés.</li>
+            <li><b>Paleta naranja y cián, tipografía Figtree</b> y títulos con degradé.</li>
+            <li><b>Menú simplificado</b>, logos de integraciones rehechos y banderas de los 7 países donde trabajamos.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hito">
+        <span class="fecha">19/9</span>
+        <div>
+          <h3>Equipo, agenda y el panel de Seba</h3>
+          <ul>
+            <li><b>Fotos reales</b> de los cuatro: Jorge, Sebastián, Juan Manuel y Cecilia.</li>
+            <li><b>El panel de resultados que armó Sebastián</b> pasó al hero del home.</li>
+            <li><b>Página de agenda</b> y pie con invitación a agendar una reunión.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hito">
+        <span class="fecha">23/9</span>
+        <div>
+          <h3>Ajustes del home</h3>
+          <ul>
+            <li><b>Tema claro desactivado</b> porque no convencía. Queda guardado para volver a activarlo.</li>
+            <li><b>Video y firma del fundador fuera:</b> el video era de un estudio de abogados de la plantilla.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hito">
+        <span class="fecha">24 y 25/9</span>
+        <div>
+          <h3>Casos de éxito</h3>
+          <ul>
+            <li><b>Cinco casos</b> con la misma estructura: plataforma de cursos, retail en rubro restringido, reparto de consultas, tienda a medida y Marker (WordPress a Webflow, el caso de Sebastián).</li>
+            <li><b>Renombres que pidió Seba:</b> "Qué cambió", "Qué tecnologías utilizamos", "Qué resolvimos".</li>
+            <li><b>Chat flotante oculto</b>, aviso y página de cookies, y bloque de suscripción en todas las páginas.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hito">
+        <span class="fecha">28/9 (hoy)</span>
+        <div>
+          <h3>Casos en el home, páginas de servicio, menú, Partners, portfolio y blog</h3>
+          <ul>
+            <li><b>Los cinco casos aparecen en el home</b> ("Trabajos que Ya Están Funcionando"), cada uno con una portada propia armada con las herramientas reales del trabajo.</li>
+            <li><b>Una página propia por servicio</b>, hecha de cero porque la de la plantilla no gustaba. Cada una tiene una demo animada en el encabezado, un comparador de antes y después, lo que incluye, formatos, proceso, casos y preguntas frecuentes preparadas para Google.</li>
+            <li><b>Menú:</b> "Paquete de Servicios" pasó a "Servicios", con un desplegable de los seis. Funciona también en celular.</li>
+            <li><b>Se eliminó la página general de Servicios.</b> Cada servicio tiene la suya, y "Servicios" en el menú lleva a la sección del home que los lista.</li>
+            <li><b>Página de Partners armada</b> (antes tenía texto de relleno): programa con tres formas de trabajar juntos (referidor, marca blanca y alianza), qué gana el partner, para quién es, cómo funciona y preguntas frecuentes. <a href="https://nudge-digital-lab.github.io/studio-complex-website/partners.html" target="_blank" rel="noopener">Ver Partners</a></li>
+            <li><b>Portfolio:</b> la página de proyectos muestra el carrusel de casos y abajo un mosaico con todos los trabajos, filtrable por Web, Tiendas, Ads y Automatización. Se sacaron las fotos de stock. <a href="https://nudge-digital-lab.github.io/studio-complex-website/project.html" target="_blank" rel="noopener">Ver Portfolio</a></li>
+            <li><b>Blog con seis notas reales</b>, una por servicio, cada una con su portada y un cierre que lleva al servicio. Las tres más nuevas aparecen en el home. Firmadas como "Equipo Studio Complex". <a href="https://nudge-digital-lab.github.io/studio-complex-website/blog.html" target="_blank" rel="noopener">Ver Blog</a></li>
+            <li><b>Limpieza:</b> se borraron las páginas de detalle de la plantilla (servicio y nota de ejemplo) y un hueco grande sobre los testimonios del home.</li>
+          </ul>
+          <div class="servicios">
+            <a href="https://nudge-digital-lab.github.io/studio-complex-website/servicio-desarrollo-web.html" target="_blank" rel="noopener"><b>Desarrollo Web</b><span>El sitio se acomoda a escritorio, tablet y teléfono</span></a>
+            <a href="https://nudge-digital-lab.github.io/studio-complex-website/servicio-tiendas-online.html" target="_blank" rel="noopener"><b>Tiendas Online</b><span>Una tienda que suma ventas sola</span></a>
+            <a href="https://nudge-digital-lab.github.io/studio-complex-website/servicio-seo-tecnico.html" target="_blank" rel="noopener"><b>SEO Técnico</b><span>Tu resultado sube al primer puesto</span></a>
+            <a href="https://nudge-digital-lab.github.io/studio-complex-website/servicio-campanas-ads.html" target="_blank" rel="noopener"><b>Campañas de Ads</b><span>Un tablero que suma consultas</span></a>
+            <a href="https://nudge-digital-lab.github.io/studio-complex-website/servicio-automatizacion-leads.html" target="_blank" rel="noopener"><b>Automatización de Leads</b><span>El circuito de cada consulta</span></a>
+            <a href="https://nudge-digital-lab.github.io/studio-complex-website/servicio-cierre-de-ventas.html" target="_blank" rel="noopener"><b>Cierre de Ventas</b><span>Oportunidades que avanzan hasta cerrar</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-crm">
+    <header>
+      <h2 id="t-crm">Lo que se hizo en el CRM</h2>
+      <p>Hecho a medida para Studio Complex, separado de cualquier otro sistema. Los dos socios entran como dueños.</p>
+    </header>
+    <div class="tiempo">
+      <div class="hito">
+        <span class="fecha">7 al 9/9</span>
+        <div>
+          <h3>Primera versión</h3>
+          <ul>
+            <li><b>Prospectos:</b> tableros tipo planilla, uno por campaña, con columnas de distintos tipos y pegado de filas.</li>
+            <li><b>Leads:</b> tablero arrastrable por etapa, buscador, valor del negocio y próxima acción con aviso de urgencia.</li>
+            <li><b>Clientes:</b> ficha con servicios, tareas, documentos y acceso al portal. Tablero de inicio con gráficos y modo claro y oscuro.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hito">
+        <span class="fecha">12 al 18/9</span>
+        <div>
+          <h3>Avisos, analítica y ajustes</h3>
+          <ul>
+            <li><b>Avisos de vencimientos por mail:</b> dominio, hosting o cualquier servicio que vence en los próximos 14 días.</li>
+            <li><b>Google Analytics en el portal del cliente:</b> cada cliente conecta su cuenta y ve sus visitas.</li>
+            <li><b>Leads con nombre y contacto editables</b> y favoritos. La base se vació de datos de prueba.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hito">
+        <span class="fecha">25/9</span>
+        <div>
+          <h3>Presupuestos</h3>
+          <ul>
+            <li><b>Módulo nuevo:</b> listado, carga, ficha con estados y el documento en A4 listo para guardar como PDF.</li>
+            <li><b>Un presupuesto enviado no se puede modificar</b> y guarda la tarifa con la que se cotizó. La numeración no se repite aunque carguen dos personas a la vez.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-falta">
+    <header>
+      <h2 id="t-falta">Lo que falta</h2>
+      <p>Primero, lo que no podemos resolver sin ustedes: decisiones y datos. Después, el trabajo que queda de nuestro lado.</p>
+    </header>
+
+    <div class="grupo">
+      <h3>Para decidir o conseguir entre los socios</h3>
+      <ul class="pend">
+        <li><span class="prio alta">Urgente</span><div>
+          <p>Cuenta de Calendly de Studio Complex</p>
+          <p>El botón "Agendá una reunión" de todo el sitio lleva a un enlace de ejemplo que no existe. Hace falta crear la cuenta y pasar el enlace real.</p>
+        </div></li>
+        <li><span class="prio alta">Urgente</span><div>
+          <p>Mail genérico de la agencia</p>
+          <p>Lo necesitan el formulario de contacto, los avisos automáticos del CRM y el pie del sitio. Hoy las consultas del formulario llegan por WhatsApp.</p>
+        </div></li>
+        <li><span class="prio alta">Urgente</span><div>
+          <p>Dominio propio</p>
+          <p>El sitio está en una dirección de GitHub. Para salir a vender conviene publicarlo en el dominio de Studio Complex.</p>
+        </div></li>
+        <li><span class="prio media">Importante</span><div>
+          <p>Sueldo de cada socio y figura societaria</p>
+          <p>La idea está acordada (sueldo fijo y el resto a reinvertir). Falta definir los montos y cómo se arma la empresa.</p>
+        </div></li>
+        <li><span class="prio media">Importante</span><div>
+          <p>Redes sociales</p>
+          <p>Los íconos de Facebook, Instagram, X y LinkedIn apuntan a las páginas generales de cada red. Faltan las cuentas de Studio Complex.</p>
+        </div></li>
+        <li><span class="prio media">Importante</span><div>
+          <p>Testimonios del home</p>
+          <p>La sección "Lo que dicen Nuestros Clientes" muestra caras de stock de la plantilla con "Próximamente". Propuesta: ocultarla hasta tener el primer testimonio real.</p>
+        </div></li>
+        <li><span class="prio media">Importante</span><div>
+          <p>Frase de la barra superior</p>
+          <p>Todavía dice "Empecemos a Entender tu Negocio y Duplicá tu Facturación". El resto del sitio ya dejó ese tono de lado.</p>
+        </div></li>
+        <li><span class="prio media">Importante</span><div>
+          <p>Condiciones del programa de Partners</p>
+          <p>La página ya está armada con tres formas de trabajar (referidor, marca blanca y alianza), pero sin números: falta definir el porcentaje de comisión, el precio mayorista de marca blanca y quién factura en cada caso. Hasta entonces la página dice que se acuerda por escrito.</p>
+        </div></li>
+        <li><span class="prio baja">Cuando se pueda</span><div>
+          <p>Capturas reales de los trabajos</p>
+          <p>Las portadas de los casos son ilustraciones propias. Si hay capturas de los sitios terminados, quedan mejor.</p>
+        </div></li>
+      </ul>
+    </div>
+
+    <div class="grupo">
+      <h3>Trabajo pendiente de nuestro lado</h3>
+      <ul class="pend">
+        <li><span class="prio alta">Urgente</span><div>
+          <p>Conectar el formulario de contacto</p>
+          <p>El de la página de Contacto depende de un servidor que GitHub Pages no tiene. Se resuelve con una planilla de Google como destino, una vez que esté el mail de la agencia.</p>
+        </div></li>
+        <li><span class="prio baja">Cuando se pueda</span><div>
+          <p>Revisar las seis notas del blog</p>
+          <p>Están escritas para nuestros clientes y sin datos inventados. Conviene leerlas y ajustar lo que quieran decir distinto. Lo ideal es sumar una nota nueva por mes.</p>
+        </div></li>
+        <li><span class="prio media">Importante</span><div>
+          <p>CRM: activar los mails y probar Analytics</p>
+          <p>Faltan las claves del servicio de envío de mails y del aviso diario en Vercel. También hay que probar la conexión de Analytics con una cuenta real de un cliente.</p>
+        </div></li>
+        <li><span class="prio baja">Cuando se pueda</span><div>
+          <p>CRM: Google Ads y Meta Ads en el portal</p>
+          <p>Sin empezar. Google pide un permiso de desarrollador y Meta una revisión de la aplicación.</p>
+        </div></li>
+        <li><span class="prio baja">Cuando se pueda</span><div>
+          <p>Revisar los ejemplos de las páginas de servicio</p>
+          <p>Los comparadores y los tableros de las demos usan datos de ejemplo, marcados como tales. Conviene que los veamos juntos antes de salir.</p>
+        </div></li>
+      </ul>
+    </div>
+
+    <p class="nota">
+      Quedaron apagados a propósito, pero guardados para volver a encenderlos sin rehacerlos: el tema
+      claro del sitio y el asistente de chat "Complex".
+    </p>
+  </section>
+
+  <footer>
+    Armado por Jorge el 28/9/2026 con el historial de cambios del sitio y del CRM.
+  </footer>
+</div>
+
+</body>
+</html>
