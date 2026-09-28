@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Cuenta Meta de Studio Complex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13; --sup: #10161d; --sup-2: #151c25; --borde: #1f2833;
+    --texto: #c3c9cf; --texto-2: #8a949e; --titulo: #f4f6f7;
+    --naranja: #F2801E; --cian: #22D3EE; --verde: #34d399; --ambar: #fbbf24; --rojo: #f87171;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.6 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; padding-inline: 18px; -webkit-font-smoothing: antialiased; }
+  .envoltura { max-width: 1000px; margin: 0 auto; padding-block: 44px 90px; display: grid; gap: 56px; }
+  h1, h2, h3 { color: var(--titulo); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  p { margin: 0; }
+  b, strong { color: var(--titulo); }
+  a { color: var(--cian); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .cabeza { display: grid; gap: 16px; position: relative; }
+  .cabeza::before { content: ""; position: absolute; inset: -60px -40px auto; height: 300px; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 60% at 15% 30%, rgba(242,128,30,.2), transparent 70%), radial-gradient(40% 60% at 85% 20%, rgba(34,211,238,.14), transparent 70%); }
+  .etiqueta { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2rem, 5.6vw, 3.2rem); line-height: 1.05; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 42%, var(--cian) 62% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bajada { font-size: 18px; max-width: 68ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta span { font: 500 12.5px/1 var(--mono); padding: 8px 11px; border-radius: 8px; background: var(--sup); box-shadow: inset 0 0 0 1px var(--borde); color: var(--texto-2); }
+
+  .alerta { border-radius: 18px; padding: 22px 24px; display: grid; gap: 8px; background: color-mix(in oklab, var(--ambar) 8%, var(--sup)); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ambar) 40%, transparent); }
+  .alerta h2 { font-size: 20px; color: var(--ambar); }
+  .alerta p { max-width: 75ch; }
+
+  .seccion { display: grid; gap: 22px; }
+  .seccion > header { display: grid; gap: 6px; }
+  h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.1; }
+  .seccion > header p { color: var(--texto-2); max-width: 68ch; }
+
+  .kpis { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .kpi { background: var(--sup); border-radius: 16px; padding: 18px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 4px; }
+  .kpi small { font-size: 13px; color: var(--texto-2); }
+  .kpi b { font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .kpi em { font-style: normal; font-size: 13px; color: var(--texto-2); }
+
+  .tabla-wrap { overflow-x: auto; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--borde); background: var(--sup); }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 720px; }
+  th, td { padding: 12px 14px; text-align: right; border-bottom: 1px solid var(--borde); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; white-space: normal; }
+  th { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-2); background: var(--sup-2); }
+  tr:last-child td { border-bottom: 0; }
+  td small { display: block; color: var(--texto-2); font-size: 12.5px; }
+  .pill { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .pill.on { color: var(--verde); background: rgba(52,211,153,.13); }
+  .pill.off { color: var(--texto-2); background: var(--sup-2); }
+  .bien { color: var(--verde); } .mal { color: var(--rojo); }
+
+  .grafico { background: var(--sup); border-radius: 16px; padding: 20px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 12px; }
+  .grafico svg { width: 100%; height: auto; display: block; }
+  .grafico .eje { stroke: var(--borde); }
+  .grafico .barra { fill: var(--naranja); }
+  .grafico .barra.ult { fill: var(--rojo); }
+  .grafico text { fill: var(--texto-2); font: 12px Figtree, sans-serif; }
+  .grafico .valor { fill: var(--titulo); font-weight: 700; font-size: 13px; }
+  .grafico p { font-size: 14.5px; }
+
+  .hallazgos { display: grid; gap: 12px; }
+  .hallazgo { display: grid; grid-template-columns: 34px 1fr; gap: 14px; background: var(--sup); border-radius: 14px; padding: 16px 18px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .hallazgo i { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 800; }
+  .hallazgo.v i { background: rgba(52,211,153,.14); color: var(--verde); }
+  .hallazgo.a i { background: rgba(251,191,36,.14); color: var(--ambar); }
+  .hallazgo.r i { background: rgba(248,113,113,.14); color: var(--rojo); }
+  .hallazgo p + p { margin-top: 4px; color: var(--texto-2); font-size: 15px; }
+
+  .plan { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: p; }
+  .plan li { counter-increment: p; display: grid; grid-template-columns: 42px 1fr; gap: 14px; background: var(--sup); border-radius: 14px; padding: 18px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .plan li::before { content: counter(p); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--naranja); color: #1a0d05; }
+  .plan h3 { font-size: 18px; margin-bottom: 4px; }
+  .plan p { font-size: 15.5px; }
+  .plan .quien { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px; color: var(--cian); background: rgba(34,211,238,.11); }
+
+  .preguntas { display: grid; gap: 10px; }
+  .preguntas div { background: var(--sup); border-radius: 14px; padding: 16px 18px; box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--naranja) 35%, transparent); }
+  .preguntas b { display: block; margin-bottom: 4px; }
+  .preguntas p { font-size: 15px; color: var(--texto-2); }
+
+  footer { font-size: 13.5px; color: var(--texto-2); border-top: 1px solid var(--borde); padding-top: 20px; }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <header class="cabeza">
+    <span class="etiqueta">Análisis · Meta Ads · 28 de septiembre de 2026</span>
+    <h1>La cuenta de Meta, <span>antes de lanzar</span> Studio Complex.</h1>
+    <p class="bajada">Qué hay hoy en la cuenta publicitaria que compartió Seba, qué aprendimos de los anuncios que ya corrieron y cómo arrancaríamos los de Studio Complex. Los números salen directo de Meta; nada está estimado.</p>
+    <div class="meta"><span>Cuenta 954836580330057</span><span>Portfolio: CS - Diseño web y marketing</span><span>Página: Studio Complex</span><span>Instagram: studiocs.arg</span></div>
+  </header>
+
+  <div class="alerta">
+    <h2>Lo primero: en esta cuenta no hay anuncios de Studio Complex</h2>
+    <p>Los tres anuncios que corrieron en la cuenta son de <b>MYC</b> (un estudio de pilates y una campaña de mudanza en Ezpeleta). Uno sigue activo gastando <b>$4.000 por día</b>. No lo tocamos. Para lanzar Studio Complex conviene decidir primero si usamos esta misma cuenta o una propia (ver las preguntas al final).</p>
+  </div>
+
+  <section class="seccion" aria-labelledby="t-resumen">
+    <header>
+      <h2 id="t-resumen">La cuenta en números</h2>
+      <p>Todo lo que corrió desde que se abrió (marzo 2026). El resultado que optimizan las tres campañas es <b>conversaciones iniciadas por WhatsApp o Instagram</b>.</p>
+    </header>
+    <div class="kpis">
+      <div class="kpi"><small>Invertido en total</small><b>$296.744</b><em>3 campañas</em></div>
+      <div class="kpi"><small>Conversaciones iniciadas</small><b>491</b><em>WhatsApp / mensajes</em></div>
+      <div class="kpi"><small>Costo por conversación</small><b>$604</b><em>promedio de la cuenta</em></div>
+      <div class="kpi"><small>Impresiones</small><b>148.112</b><em>CPM promedio ~$2.000</em></div>
+      <div class="kpi"><small>Píxel</small><b class="mal">No tiene</b><em>no se mide nada en sitios web</em></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-camp">
+    <header>
+      <h2 id="t-camp">Campaña por campaña</h2>
+      <p>Desde el inicio de cada una.</p>
+    </header>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Campaña</th><th>Estado</th><th>Invertido</th><th>Conversaciones</th><th>Costo por conv.</th><th>CTR</th><th>Frecuencia</th></tr></thead>
+        <tbody>
+          <tr><td>MYC · Pilates · Experiencia · WhatsApp<small>Desde 10/8 · $4.000/día</small></td><td><span class="pill on">Activa</span></td><td>$197.142</td><td>340</td><td>$580</td><td>2,84%</td><td>4,1</td></tr>
+          <tr><td>MYC · Mudanza Ezpeleta · Leads<small>Agosto 2026 · $4.000/día</small></td><td><span class="pill off">Pausada</span></td><td>$41.858</td><td>84</td><td class="bien">$498</td><td class="bien">4,54%</td><td>2,2</td></tr>
+          <tr><td>Publicación de Instagram "¿Cuántas veces más vas…"<small>Marzo 2026 · promocionada desde Instagram</small></td><td><span class="pill off">Pausada</span></td><td>$57.743</td><td>67</td><td class="mal">$862</td><td>3,14%</td><td>2,0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-anuncios">
+    <header>
+      <h2 id="t-anuncios">Anuncio por anuncio</h2>
+      <p>Lo que más enseña para Studio Complex: qué formato trajo conversaciones más baratas.</p>
+    </header>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Anuncio</th><th>Estado</th><th>Invertido</th><th>Conversaciones</th><th>Costo por conv.</th><th>CTR</th></tr></thead>
+        <tbody>
+          <tr><td>MYC · Pilates · Experiencia · WhatsApp</td><td><span class="pill on">Activo</span></td><td>$148.725</td><td>306</td><td class="bien">$486</td><td>2,69%</td></tr>
+          <tr><td>MYC · Mudanza · Imagen · WhatsApp</td><td><span class="pill off">Pausado</span></td><td>$41.858</td><td>84</td><td class="bien">$498</td><td class="bien">4,54%</td></tr>
+          <tr><td>Publicación de Instagram "¿Cuántas veces más vas…"</td><td><span class="pill off">Pausado</span></td><td>$57.743</td><td>67</td><td>$862</td><td>3,14%</td></tr>
+          <tr><td>MYC · Promo 10% OFF martes y jueves · Video</td><td><span class="pill on">Activo</span></td><td>$28.483</td><td>23</td><td class="mal">$1.238</td><td>3,61%</td></tr>
+          <tr><td>REEL · Nuevo espacio · Transformación</td><td><span class="pill off">Pausado</span></td><td>$19.323</td><td>10</td><td class="mal">$1.932</td><td>3,49%</td></tr>
+          <tr><td>MYC · Promo 10% OFF martes y jueves · Imagen<small>Casi no recibió presupuesto: 134 impresiones</small></td><td><span class="pill on">Activo</span></td><td>$609</td><td>1</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-tend">
+    <header>
+      <h2 id="t-tend">La campaña activa se está agotando</h2>
+      <p>Costo por conversación de "MYC · Pilates", semana a semana, últimas 4 semanas.</p>
+    </header>
+    <div class="grafico">
+      <svg viewBox="0 0 640 260" role="img" aria-label="Costo por conversación semanal: 432, 532, 719 y 1.067 pesos">
+        <line class="eje" x1="40" y1="220" x2="620" y2="220"/>
+        <!-- escala: 0 a 1200 pesos = 200 px de alto -->
+        <rect class="barra" x="70"  y="148" width="90" height="72" rx="6"/>
+        <rect class="barra" x="215" y="131" width="90" height="89" rx="6"/>
+        <rect class="barra" x="360" y="100" width="90" height="120" rx="6"/>
+        <rect class="barra ult" x="505" y="42" width="90" height="178" rx="6"/>
+        <text class="valor" x="115" y="140" text-anchor="middle">$432</text>
+        <text class="valor" x="260" y="123" text-anchor="middle">$532</text>
+        <text class="valor" x="405" y="92" text-anchor="middle">$719</text>
+        <text class="valor" x="550" y="34" text-anchor="middle">$1.067</text>
+        <text x="115" y="242" text-anchor="middle">31/8 – 6/9</text>
+        <text x="260" y="242" text-anchor="middle">7 – 13/9</text>
+        <text x="405" y="242" text-anchor="middle">14 – 20/9</text>
+        <text x="550" y="242" text-anchor="middle">21 – 27/9</text>
+      </svg>
+      <p>En cuatro semanas el costo por conversación se multiplicó por 2,5 y las conversaciones bajaron de <b>60 a 24</b> por semana, con el mismo presupuesto. Es el mismo anuncio desde agosto: el público ya lo vio más de 4 veces en promedio. Es un caso de cansancio del anuncio, y le conviene a MYC renovar la pieza.</p>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-hall">
+    <header><h2 id="t-hall">Lo que nos sirve para Studio Complex</h2></header>
+    <div class="hallazgos">
+      <div class="hallazgo v"><i>✓</i><div><p><b>Anuncios que llevan a WhatsApp funcionan en esta cuenta.</b></p><p>Las conversaciones salen entre $486 y $580 con piezas simples. Es el mismo canal donde vive el asistente y el seguimiento que vendemos, así que se puede mostrar con el ejemplo.</p></div></div>
+      <div class="hallazgo v"><i>✓</i><div><p><b>La imagen fija rindió mejor que el video.</b></p><p>La mejor pieza de la cuenta es una imagen (mudanza: $498 por conversación, 4,5% de CTR). Los videos y reels trajeron conversaciones a más del doble. Para arrancar, imágenes claras con una sola idea.</p></div></div>
+      <div class="hallazgo a"><i>!</i><div><p><b>Las piezas se cansan en unas 4 semanas.</b></p><p>Hay que planificar piezas nuevas cada 3 o 4 semanas desde el principio, no cuando el costo ya se duplicó.</p></div></div>
+      <div class="hallazgo r"><i>✕</i><div><p><b>No hay píxel ni medición en la web.</b></p><p>Hoy la cuenta solo puede optimizar a mensajes. Para mandar gente a las páginas de servicio del sitio y medir quién agenda, hace falta crear el píxel e instalarlo en la web de Studio Complex.</p></div></div>
+      <div class="hallazgo r"><i>✕</i><div><p><b>El Instagram no está conectado a la cuenta publicitaria.</b></p><p>Seba ya lo compartió con nudge, pero todavía no aparece para anunciar. Sin eso, los anuncios en Instagram salen con el nombre de la página de Facebook y no con @studiocs.arg.</p></div></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-plan">
+    <header>
+      <h2 id="t-plan">Cómo lanzaríamos los anuncios de Studio Complex</h2>
+      <p>Una propuesta para arrancar chico, medir y crecer con lo que funcione.</p>
+    </header>
+    <ol class="plan">
+      <li><div><h3>Decidir la cuenta</h3><p>Lo recomendable es una cuenta publicitaria propia de Studio Complex, dentro del portfolio que elijan, para que la facturación y los reportes no se mezclen con los de MYC.</p><span class="quien">Decisión de los socios</span></div></li>
+      <li><div><h3>Conectar Instagram y crear el píxel</h3><p>Vincular @studiocs.arg a la cuenta publicitaria, crear el píxel e instalarlo en la web con los eventos de "agendar reunión" y "clic en WhatsApp". Lo instalamos nosotros; lleva un día.</p><span class="quien">nudge</span></div></li>
+      <li><div><h3>Una campaña a WhatsApp con 2 servicios</h3><p>Objetivo de mensajes, con dos grupos: Desarrollo Web y Tiendas Online, que son los que tienen casos para mostrar. Una oferta concreta de entrada: "diagnóstico de tu web sin cargo" o "media hora para ver por dónde empezar".</p><span class="quien">nudge</span></div></li>
+      <li><div><h3>3 piezas por grupo</h3><p>Imágenes con una sola idea cada una, con el estilo del sitio: el antes y después, un caso real (Marker, tienda a medida) y la oferta. Salen de lo que ya tenemos armado en la web.</p><span class="quien">nudge</span></div></li>
+      <li><div><h3>Dos semanas de prueba y ajuste</h3><p>Medimos costo por conversación y cuántas terminan en reunión agendada. Apagamos lo que no rinde, dejamos lo que sí y planificamos las piezas nuevas para la semana 4.</p><span class="quien">nudge + socios</span></div></li>
+    </ol>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-preg">
+    <header><h2 id="t-preg">Para definir antes de arrancar</h2></header>
+    <div class="preguntas">
+      <div><b>¿Cuenta propia o esta misma?</b><p>Esta cuenta ya tiene medio de pago y historial, pero es donde corre MYC. Una propia es más ordenada.</p></div>
+      <div><b>¿Cuánto queremos invertir por mes?</b><p>Como referencia: con lo que costó cada conversación en esta cuenta, $4.000 por día traerían del orden de 7 u 8 conversaciones diarias al principio. El monto lo definen ustedes.</p></div>
+      <div><b>¿Qué servicio empuja primero?</b><p>La propuesta arranca por Web y Tiendas porque tienen casos. Si prefieren Ads o Automatización, cambiamos las piezas.</p></div>
+      <div><b>¿Quién atiende los WhatsApp que lleguen?</b><p>Para que el anuncio rinda, alguien tiene que responder en el momento. Es justo lo que vendemos en Cierre de Ventas.</p></div>
+    </div>
+  </section>
+
+  <footer>Datos leídos de Meta Ads el 28/9/2026 con acceso de socio (solo lectura para este análisis: no se cambió nada en la cuenta). Las campañas de MYC no se tocaron.</footer>
+</div>
+</body>
+</html>
