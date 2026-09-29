@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>CRM Complex · Inicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+  /* Maqueta del nuevo Inicio del CRM. Paleta del CRM (naranja / negro /
+     blanco / gris), arranca en claro como el CRM real. Datos de ejemplo. */
+  :root {
+    --fondo: #f5f4f2; --panel: #ffffff; --panel-2: #faf9f7; --borde: #e8e5e0;
+    --texto: #1c1a17; --texto-2: #6f6a63; --texto-3: #9a948c;
+    --naranja: #ea6a12; --naranja-suave: #fdeee2; --naranja-borde: #f7d2b4;
+    --negro: #16140f; --verde: #1f9d57; --verde-suave: #e5f5ec; --rojo: #d4453b; --rojo-suave: #fbe9e7; --ambar: #b7791f; --ambar-suave: #fbf1de;
+    --sombra: 0 1px 2px rgba(20,16,10,.04), 0 8px 24px -12px rgba(20,16,10,.12);
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --fondo: #0d0c0b; --panel: #171513; --panel-2: #1c1a17; --borde: #2a2723;
+    --texto: #f3f1ee; --texto-2: #a9a39b; --texto-3: #7b766f;
+    --naranja: #f2801e; --naranja-suave: #2c1a0d; --naranja-borde: #5a3212;
+    --negro: #f3f1ee; --verde: #3fcf83; --verde-suave: #10281b; --rojo: #f0736a; --rojo-suave: #2e1512; --ambar: #f0b454; --ambar-suave: #2b2110;
+    --sombra: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.6);
+  } }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --fondo: #0d0c0b; --panel: #171513; --panel-2: #1c1a17; --borde: #2a2723;
+    --texto: #f3f1ee; --texto-2: #a9a39b; --texto-3: #7b766f;
+    --naranja: #f2801e; --naranja-suave: #2c1a0d; --naranja-borde: #5a3212;
+    --negro: #f3f1ee; --verde: #3fcf83; --verde-suave: #10281b; --rojo: #f0736a; --rojo-suave: #2e1512; --ambar: #f0b454; --ambar-suave: #2b2110;
+    --sombra: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fondo); color: var(--texto); font: 15px/1.5 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--naranja); outline-offset: 2px; border-radius: 10px; }
+
+  .app { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .lateral { display: none; } }
+
+  /* --- Barra lateral --- */
+  .lateral { position: sticky; top: 0; height: 100vh; padding: 14px; }
+  .lateral-caja { height: 100%; background: var(--panel); border-radius: 18px; box-shadow: var(--sombra), inset 0 0 0 1px var(--borde); padding: 16px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .marca { display: flex; align-items: center; gap: 10px; padding: 4px 8px 14px; font-weight: 800; font-size: 18px; letter-spacing: -.02em; }
+  .marca i { width: 28px; height: 28px; border-radius: 8px; background: var(--naranja); display: flex; align-items: center; justify-content: center; color: #fff; font-style: normal; font-size: 15px; }
+  .espacio { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 12px; background: var(--panel-2); box-shadow: inset 0 0 0 1px var(--borde); margin-bottom: 10px; }
+  .espacio b { width: 32px; height: 32px; border-radius: 9px; background: var(--naranja-suave); color: var(--naranja); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .espacio span { font-size: 14px; font-weight: 600; line-height: 1.2; }
+  .espacio small { display: block; font-weight: 500; font-size: 12.5px; color: var(--texto-2); }
+  .nav a { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 10px; font-weight: 500; color: var(--texto-2); }
+  .nav a:hover { background: var(--panel-2); color: var(--texto); }
+  .nav a.actual { background: var(--naranja-suave); color: var(--naranja); font-weight: 700; }
+  .nav a em { margin-left: auto; font-style: normal; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--panel-2); box-shadow: inset 0 0 0 1px var(--borde); color: var(--texto-2); }
+  .nav svg { width: 18px; height: 18px; flex: none; }
+  .grupo { font-size: 11.5px; font-weight: 700; letter-spacing: .12em; color: var(--texto-3); padding: 14px 10px 4px; }
+  .pie-lat { margin-top: auto; display: grid; gap: 4px; }
+  .usuario { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--borde); margin-top: 6px; }
+  .usuario b { width: 34px; height: 34px; border-radius: 50%; background: var(--negro); color: var(--panel); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .usuario span { font-size: 14px; font-weight: 600; line-height: 1.2; }
+  .usuario small { display: block; font-size: 12.5px; color: var(--texto-2); font-weight: 500; }
+
+  /* --- Contenido --- */
+  .main { padding: 44px clamp(18px, 4vw, 64px) 70px; display: grid; gap: 40px; align-content: start; max-width: 1320px; width: 100%; }
+  .top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .saludo h1 { margin: 0; font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.05; letter-spacing: -.035em; font-weight: 800; }
+  .saludo p { margin: 6px 0 0; font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -.03em; font-weight: 700; color: var(--texto-3); }
+  .acciones-top { display: flex; gap: 8px; }
+  .icono { width: 42px; height: 42px; border-radius: 12px; background: var(--panel); box-shadow: var(--sombra), inset 0 0 0 1px var(--borde); display: flex; align-items: center; justify-content: center; border: 0; position: relative; }
+  .icono svg { width: 19px; height: 19px; }
+  .icono i { position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--naranja); box-shadow: 0 0 0 2px var(--panel); }
+  .chip-top { display: flex; align-items: center; gap: 8px; height: 42px; padding: 0 14px; border-radius: 12px; background: var(--naranja-suave); color: var(--naranja); font-weight: 700; box-shadow: inset 0 0 0 1px var(--naranja-borde); border: 0; }
+
+  .rotulo { font-size: 15px; font-weight: 600; color: var(--texto-2); margin: 0 0 12px; }
+
+  /* Caja protagonista: acción rápida */
+  .rapida { border-radius: 22px; padding: 22px; background: linear-gradient(135deg, var(--naranja-suave), var(--panel) 60%); box-shadow: var(--sombra), inset 0 0 0 1px var(--naranja-borde); display: grid; gap: 14px; }
+  .rapida-cab { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--texto-2); }
+  .rapida-cab i { width: 30px; height: 30px; border-radius: 9px; background: var(--naranja); color: #fff; display: flex; align-items: center; justify-content: center; font-style: normal; }
+  .campo { display: flex; align-items: center; gap: 10px; background: var(--panel); border-radius: 16px; padding: 8px 8px 8px 20px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .campo input { flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 17px; color: var(--texto); padding: 12px 0; outline: none; }
+  .campo input::placeholder { color: var(--texto-3); }
+  .campo button { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--naranja); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }
+  .atajos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .atajos button { display: inline-flex; align-items: center; gap: 8px; border: 0; padding: 10px 16px; border-radius: 999px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--naranja-borde); color: var(--naranja); font-weight: 600; }
+  .atajos svg { width: 16px; height: 16px; }
+  .rapida small { color: var(--texto-3); font-size: 13px; }
+
+  /* Hoy: cosas que piden atención */
+  .hoy { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  @media (max-width: 560px) { .hoy { grid-template-columns: 1fr 1fr; } .dato b { font-size: 26px; } .atajos button { padding: 9px 13px; } }
+  .dato { background: var(--panel); border-radius: 18px; padding: 18px; box-shadow: var(--sombra), inset 0 0 0 1px var(--borde); display: grid; gap: 6px; }
+  .dato small { font-size: 13px; font-weight: 600; color: var(--texto-2); display: flex; align-items: center; gap: 8px; }
+  .dato small i { width: 8px; height: 8px; border-radius: 50%; }
+  .dato b { font-size: 32px; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .dato span { font-size: 13px; color: var(--texto-3); }
+
+  /* Módulos grandes */
+  .modulos { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 1250px) { .modulos { grid-template-columns: 1fr; } }
+  .modulo { position: relative; overflow: hidden; border-radius: 22px; padding: 28px; min-height: 250px; background: var(--panel); box-shadow: var(--sombra), inset 0 0 0 1px var(--borde); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; transition: transform .25s ease, box-shadow .25s ease; }
+  .modulo:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -20px rgba(20,16,10,.25), inset 0 0 0 1px var(--naranja-borde); }
+  .modulo.oscuro { background: var(--negro); color: var(--panel); }
+  .modulo.oscuro p { color: color-mix(in oklab, var(--panel) 70%, transparent); }
+  .modulo.oscuro .cuenta { color: color-mix(in oklab, var(--panel) 60%, transparent); }
+  .cuenta { font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-3); display: flex; align-items: center; gap: 8px; }
+  .modulo h2 { margin: 10px 0 8px; font-size: clamp(1.6rem, 2.6vw, 2.1rem); letter-spacing: -.03em; line-height: 1.05; }
+  .modulo p { margin: 0 0 20px; color: var(--texto-2); max-width: 30ch; }
+  .ir { width: 50px; height: 50px; border-radius: 50%; background: var(--naranja); color: #fff; display: flex; align-items: center; justify-content: center; }
+  .modulo.oscuro .ir { background: var(--panel); color: var(--negro); }
+  @media (max-width: 560px) { .modulo { grid-template-columns: 1fr; } .vis { display: none; } }
+
+  /* Mini kanban dentro del módulo Leads */
+  .vis { display: flex; gap: 8px; justify-content: flex-end; transform: rotate(-3deg); }
+  .col { width: 100px; background: var(--panel-2); border-radius: 14px; padding: 8px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 6px; align-content: start; }
+  .col > b { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-3); padding: 2px 4px; }
+  .tar { background: var(--panel); border-radius: 9px; padding: 8px; box-shadow: 0 4px 10px -6px rgba(0,0,0,.25), inset 0 0 0 1px var(--borde); font-size: 11.5px; font-weight: 700; line-height: 1.25; }
+  .tar small { display: block; font-weight: 600; font-size: 10.5px; margin-top: 3px; color: var(--texto-3); }
+  .tar small.hoy-t { color: var(--naranja); }
+  .tar small.ok { color: var(--verde); }
+  .col:nth-child(2) { transform: translateY(14px); } .col:nth-child(3) { transform: translateY(-6px); }
+  /* Mini presupuesto dentro del módulo Presupuestos */
+  .doc { width: 190px; background: #fff; color: #16140f; border-radius: 12px; padding: 14px; box-shadow: 0 20px 40px -14px rgba(0,0,0,.55); transform: rotate(4deg); display: grid; gap: 6px; font-size: 11px; }
+  .doc b { font-size: 12px; } .doc hr { border: 0; border-top: 1px solid #eee; margin: 2px 0; width: 100%; }
+  .doc div { display: flex; justify-content: space-between; color: #6f6a63; }
+  .doc div.tot { color: #16140f; font-weight: 800; font-size: 13px; }
+  .doc em { font-style: normal; align-self: start; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #fdeee2; color: #ea6a12; }
+  .doc2 { transform: rotate(-5deg) translateX(20px); opacity: .55; position: absolute; }
+  .vis-doc { position: relative; display: flex; justify-content: center; }
+
+  /* Tres módulos chicos */
+  .chicos { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 800px) { .chicos { grid-template-columns: 1fr; } }
+  .chico { display: flex; align-items: center; gap: 14px; background: var(--panel); border-radius: 18px; padding: 18px; box-shadow: var(--sombra), inset 0 0 0 1px var(--borde); }
+  .chico:hover { box-shadow: var(--sombra), inset 0 0 0 1px var(--naranja-borde); }
+  .chico > i { width: 44px; height: 44px; border-radius: 12px; background: var(--naranja-suave); color: var(--naranja); display: flex; align-items: center; justify-content: center; flex: none; }
+  .chico svg { width: 20px; height: 20px; }
+  .chico b { display: block; font-size: 16px; }
+  .chico span { font-size: 13.5px; color: var(--texto-2); }
+  .chico em { margin-left: auto; font-style: normal; color: var(--texto-3); font-size: 18px; }
+
+  /* Dos columnas: agenda de hoy + actividad */
+  .dos { display: grid; gap: 16px; grid-template-columns: 1.1fr .9fr; }
+  @media (max-width: 1000px) { .dos { grid-template-columns: 1fr; } }
+  .lista { background: var(--panel); border-radius: 20px; padding: 8px; box-shadow: var(--sombra), inset 0 0 0 1px var(--borde); }
+  .lista-cab { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px 8px; }
+  .lista-cab h3 { margin: 0; font-size: 18px; letter-spacing: -.01em; }
+  .lista-cab a { font-size: 13.5px; font-weight: 600; color: var(--naranja); }
+  .fila { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; }
+  .fila:hover { background: var(--panel-2); }
+  .ava { width: 36px; height: 36px; border-radius: 10px; flex: none; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; background: var(--panel-2); box-shadow: inset 0 0 0 1px var(--borde); color: var(--texto-2); }
+  .fila .txt { flex: 1; min-width: 0; }
+  .fila .txt b { display: block; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fila .txt span { font-size: 13px; color: var(--texto-2); }
+  .etq { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .etq.hoy-e { background: var(--naranja-suave); color: var(--naranja); }
+  .etq.atr { background: var(--rojo-suave); color: var(--rojo); }
+  .etq.pro { background: var(--ambar-suave); color: var(--ambar); }
+  .etq.ok { background: var(--verde-suave); color: var(--verde); }
+  .hora { font-size: 12.5px; color: var(--texto-3); white-space: nowrap; }
+
+  .aviso-demo { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--negro); color: var(--panel); font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); z-index: 10; white-space: nowrap; }
+  @media (max-width: 560px) { .aviso-demo { white-space: normal; text-align: center; width: calc(100% - 32px); } }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="lateral" aria-label="Menú">
+    <div class="lateral-caja">
+      <div class="marca"><i>C</i>Complex CRM</div>
+      <div class="espacio"><b>SC</b><span>Studio Complex<small>Agencia digital</small></span></div>
+      <nav class="nav" aria-label="Principal">
+        <a class="actual" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 3 10v10a1 1 0 0 0 1 1h5v-6h6v6h5a1 1 0 0 0 1-1V10z"/></svg>Inicio</a>
+        <div class="grupo">VENTAS</div>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg>Prospectos</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/></svg>Leads<em>12</em></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>Presupuestos</a>
+        <div class="grupo">CLIENTES</div>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg>Clientes</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Vencimientos<em>3</em></a>
+      </nav>
+      <div class="pie-lat nav">
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg>Avisos</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Mi cuenta</a>
+        <div class="usuario"><b>JC</b><span>Jorge Clerici<small>Socio · Dueño</small></span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <div class="saludo"><h1>Buenas tardes, Jorge</h1><p>¿Qué movemos hoy?</p></div>
+      <div class="acciones-top">
+        <button class="chip-top" type="button">＋ Nuevo lead</button>
+        <button class="icono" type="button" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+        <button class="icono" type="button" aria-label="Avisos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg><i></i></button>
+        <button class="icono" type="button" aria-label="Cambiar tema" id="tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      </div>
+    </div>
+
+    <section>
+      <p class="rotulo">Cargá algo rápido</p>
+      <div class="rapida">
+        <div class="rapida-cab"><i>✦</i>Escribí lo que pasó y el CRM lo ubica: un lead nuevo, una nota o un seguimiento.</div>
+        <form class="campo" onsubmit="event.preventDefault()">
+          <input id="rapido" type="text" placeholder="Llamó Laura de Distribuidora Sur, quiere una tienda, volver a escribirle el jueves…" aria-label="Carga rápida">
+          <button type="submit" aria-label="Cargar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+        </form>
+        <div class="atajos">
+          <button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Nuevo lead</button>
+          <button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>Nuevo presupuesto</button>
+          <button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Importar clientes</button>
+        </div>
+        <small>La carga en lenguaje natural es una idea para una segunda etapa. Los tres botones ya existen en el CRM.</small>
+      </div>
+    </section>
+
+    <section>
+      <p class="rotulo">Hoy</p>
+      <div class="hoy">
+        <div class="dato"><small><i style="background:var(--naranja)"></i>Seguimientos para hoy</small><b>4</b><span>2 atrasados de ayer</span></div>
+        <div class="dato"><small><i style="background:var(--ambar)"></i>Presupuestos enviados</small><b>3</b><span>$1.840.000 esperando respuesta</span></div>
+        <div class="dato"><small><i style="background:var(--verde)"></i>Cerrados este mes</small><b>2</b><span>$960.000</span></div>
+        <div class="dato"><small><i style="background:var(--rojo)"></i>Vencen en 14 días</small><b>3</b><span>2 dominios, 1 hosting</span></div>
+      </div>
+    </section>
+
+    <section>
+      <p class="rotulo">Elegí por dónde seguir</p>
+      <div class="modulos">
+        <a class="modulo" href="#">
+          <div>
+            <span class="cuenta">▦ 12 leads en curso</span>
+            <h2>Leads</h2>
+            <p>El tablero de ventas: cada oportunidad con su etapa, su valor y la próxima acción.</p>
+            <span class="ir" aria-hidden="true">→</span>
+          </div>
+          <div class="vis" aria-hidden="true">
+            <div class="col"><b>Nuevos</b><div class="tar">Distribuidora Sur<small>Tienda online</small></div><div class="tar">Óptica Plaza<small>Web</small></div></div>
+            <div class="col"><b>Seguimiento</b><div class="tar">Ferretería Lomas<small class="hoy-t">Hoy</small></div><div class="tar">Café Molino<small>Jueves</small></div></div>
+            <div class="col"><b>Cerrados</b><div class="tar">Estudio Arce<small class="ok">$480.000</small></div></div>
+          </div>
+        </a>
+        <a class="modulo oscuro" href="#">
+          <div>
+            <span class="cuenta">▤ 3 esperando respuesta</span>
+            <h2>Presupuestos</h2>
+            <p>Armá el presupuesto, mandalo en PDF y seguí en qué estado está cada uno.</p>
+            <span class="ir" aria-hidden="true">→</span>
+          </div>
+          <div class="vis-doc" aria-hidden="true">
+            <div class="doc doc2"><b>SC-0007</b><hr><div><span>Tienda online</span><span>…</span></div></div>
+            <div class="doc"><em>Enviado</em><b>Presupuesto SC-0008</b><span>Distribuidora Sur</span><hr><div><span>Tienda a medida</span><span>$620.000</span></div><div><span>Carga de catálogo</span><span>$180.000</span></div><hr><div class="tot"><span>Total</span><span>$800.000</span></div></div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="chicos">
+        <a class="chico" href="#"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></i><div><b>Prospectos</b><span>Tableros tipo planilla</span></div><em>›</em></a>
+        <a class="chico" href="#"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/></svg></i><div><b>Clientes</b><span>8 activos</span></div><em>›</em></a>
+        <a class="chico" href="#"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></i><div><b>Vencimientos</b><span>Dominios y hosting</span></div><em>›</em></a>
+      </div>
+    </section>
+
+    <section class="dos">
+      <div class="lista">
+        <div class="lista-cab"><h3>Tu agenda de hoy</h3><a href="#">Ver leads →</a></div>
+        <a class="fila" href="#"><span class="ava">FL</span><span class="txt"><b>Ferretería Lomas</b><span>Segundo seguimiento del presupuesto</span></span><span class="etq atr">Atrasado</span></a>
+        <a class="fila" href="#"><span class="ava">CM</span><span class="txt"><b>Café Molino</b><span>Mandar propuesta de tienda</span></span><span class="etq hoy-e">Hoy</span></a>
+        <a class="fila" href="#"><span class="ava">DS</span><span class="txt"><b>Distribuidora Sur</b><span>Confirmar reunión de diagnóstico</span></span><span class="etq hoy-e">Hoy</span></a>
+        <a class="fila" href="#"><span class="ava">OP</span><span class="txt"><b>Óptica Plaza</b><span>Primer contacto por WhatsApp</span></span><span class="etq hoy-e">Hoy</span></a>
+      </div>
+      <div class="lista">
+        <div class="lista-cab"><h3>Actividad reciente</h3></div>
+        <div class="fila"><span class="ava">SC</span><span class="txt"><b>Seba cerró Estudio Arce</b><span>Sitio corporativo · $480.000</span></span><span class="hora">hace 2 h</span></div>
+        <div class="fila"><span class="ava">JC</span><span class="txt"><b>Presupuesto SC-0008 enviado</b><span>Distribuidora Sur</span></span><span class="hora">hace 5 h</span></div>
+        <div class="fila"><span class="ava">JC</span><span class="txt"><b>Nuevo lead: Óptica Plaza</b><span>Vino de la web</span></span><span class="hora">ayer</span></div>
+        <div class="fila"><span class="ava">SC</span><span class="txt"><b>Vence el dominio de Gym Norte</b><span>En 9 días</span></span><span class="hora">ayer</span></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="aviso-demo">Maqueta del nuevo Inicio del CRM · datos de ejemplo</div>
+<script>
+  document.getElementById("tema").onclick = function () {
+    var r = document.documentElement, oscuro = r.getAttribute("data-theme") === "dark" ||
+      (!r.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    r.setAttribute("data-theme", oscuro ? "light" : "dark");
+  };
+</script>
+</body>
+</html>
