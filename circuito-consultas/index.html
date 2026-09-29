@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Circuito de consultas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13; --sup: #10161d; --sup-2: #151c25; --borde: #1f2833;
+    --texto: #c3c9cf; --texto-2: #8a949e; --titulo: #f4f6f7;
+    --naranja: #F2801E; --cian: #22D3EE; --verde: #34d399; --ambar: #fbbf24; --rojo: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.6 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; padding-inline: 18px; -webkit-font-smoothing: antialiased; }
+  .envoltura { max-width: 1040px; margin: 0 auto; padding-block: 44px 90px; display: grid; gap: 52px; }
+  h1, h2, h3 { color: var(--titulo); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  p { margin: 0; }
+  b { color: var(--titulo); }
+
+  .cabeza { display: grid; gap: 14px; position: relative; }
+  .cabeza::before { content: ""; position: absolute; inset: -60px -40px auto; height: 280px; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 60% at 15% 30%, rgba(242,128,30,.2), transparent 70%), radial-gradient(40% 60% at 85% 20%, rgba(34,211,238,.14), transparent 70%); }
+  .etiqueta { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2rem, 5.6vw, 3.2rem); line-height: 1.05; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 42%, var(--cian) 62% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bajada { font-size: 18px; max-width: 68ch; text-align: justify; hyphens: auto; }
+
+  .seccion { display: grid; gap: 22px; }
+  .seccion > header { display: grid; gap: 6px; }
+  h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.1; }
+  .seccion > header p { color: var(--texto-2); max-width: 70ch; text-align: justify; hyphens: auto; }
+
+  /* Flujo en bento */
+  .flujo { display: grid; gap: 14px; grid-template-columns: 1fr; counter-reset: paso; }
+  @media (min-width: 900px) { .flujo { grid-template-columns: repeat(4, 1fr); } }
+  .paso { counter-increment: paso; position: relative; background: linear-gradient(180deg, color-mix(in oklab, #fff 4%, var(--sup)), var(--sup)); border-radius: 20px; padding: 22px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 10px; align-content: start; }
+  .paso::before { content: counter(paso); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--naranja); color: #1a0d05; }
+  .paso h3 { font-size: 18px; }
+  .paso p { font-size: 15px; text-align: justify; hyphens: auto; }
+  .paso .donde { justify-self: start; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; color: var(--cian); background: rgba(34,211,238,.11); }
+  @media (min-width: 900px) { .paso:not(:last-child)::after { content: "→"; position: absolute; right: -13px; top: 30px; color: var(--naranja); font-weight: 800; z-index: 1; } }
+
+  .tabla-wrap { overflow-x: auto; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--borde); background: var(--sup); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 760px; }
+  th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--borde); }
+  th { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-2); background: var(--sup-2); }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--titulo); font-weight: 700; white-space: nowrap; }
+  td small { display: block; color: var(--texto-2); font-size: 13px; margin-top: 2px; }
+
+  .estados { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .estado { font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 999px; }
+  .e1 { background: rgba(34,211,238,.12); color: var(--cian); }
+  .e2 { background: rgba(242,128,30,.14); color: var(--naranja); }
+  .e3 { background: rgba(52,211,153,.13); color: var(--verde); }
+  .e4 { background: var(--sup-2); color: var(--texto-2); }
+  .flecha { color: var(--texto-2); font-weight: 800; }
+
+  .necesita { display: grid; gap: 12px; }
+  .item { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: start; background: var(--sup); border-radius: 14px; padding: 16px 18px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .item .n { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--sup-2); color: var(--naranja); }
+  .item p + p { margin-top: 4px; font-size: 14.5px; color: var(--texto-2); text-align: justify; hyphens: auto; }
+  .quien { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .q-socios { color: var(--ambar); background: rgba(251,191,36,.12); }
+  .q-nudge { color: var(--cian); background: rgba(34,211,238,.11); }
+  @media (max-width: 560px) { .item { grid-template-columns: auto 1fr; } .item .quien { grid-column: 2; justify-self: start; } }
+
+  footer { font-size: 13.5px; color: var(--texto-2); border-top: 1px solid var(--borde); padding-top: 20px; }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <header class="cabeza">
+    <span class="etiqueta">Plan · Studio Complex · 29 de septiembre de 2026</span>
+    <h1>Del formulario de la web <span>al CRM</span>, sin cargar nada a mano.</h1>
+    <p class="bajada">Cómo va a funcionar cada consulta que entre por studiocomplex.com.ar: se guarda sola, nos avisa por mail a los dos, uno la toma para que no nos pisemos y con un botón pasa al tablero de ventas del CRM. Todo dentro del CRM que ya estamos usando.</p>
+  </header>
+
+  <section class="seccion" aria-labelledby="t-flujo">
+    <header><h2 id="t-flujo">El recorrido de una consulta</h2></header>
+    <div class="flujo">
+      <div class="paso"><h3>Alguien completa un formulario</h3><p>El de "Contanos tu caso", el de dominio / nuevo proyecto o el de suscripción. La web manda los datos al CRM.</p><span class="donde">Web</span></div>
+      <div class="paso"><h3>Se guarda y nos avisa</h3><p>La consulta queda guardada con nombre, email, WhatsApp, mensaje, página y si vino de un anuncio. Nos llega un mail a los dos y la persona recibe una respuesta automática.</p><span class="donde">CRM + mail</span></div>
+      <div class="paso"><h3>Uno de los dos la toma</h3><p>En la bandeja "Consultas" del dashboard tocamos "La tomo yo". Queda a la vista quién la está viendo, así no le escribimos los dos al mismo cliente.</p><span class="donde">Dashboard del CRM</span></div>
+      <div class="paso"><h3>Pasa a lead con un botón</h3><p>"Pasar a lead" la crea en el tablero de ventas con todos los datos y el mensaje como primera nota, asignada a quien la tomó.</p><span class="donde">CRM · Leads</span></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-estados">
+    <header><h2 id="t-estados">Estados de una consulta</h2><p>En la bandeja se ve cada consulta con su estado y, si alguien la tomó, quién.</p></header>
+    <div class="estados">
+      <span class="estado e1">Nueva</span><span class="flecha">→</span>
+      <span class="estado e2">Tomada · "La está viendo Seba"</span><span class="flecha">→</span>
+      <span class="estado e3">Pasada a lead</span>
+      <span class="flecha">o</span>
+      <span class="estado e4">Descartada (spam, no aplica)</span>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-cuadro">
+    <header><h2 id="t-cuadro">Qué hace cada formulario</h2></header>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Formulario</th><th>Dónde está</th><th>Qué se guarda</th><th>Mail a nosotros</th><th>Mail a la persona</th><th>Después</th></tr></thead>
+        <tbody>
+          <tr><td>Contanos tu caso<small>el principal</small></td><td>Botones de contacto de casos, servicios, blog (y "Empezar" del menú)</td><td>Nombre, email, WhatsApp, mensaje, página, anuncio de origen</td><td>A los dos, con botón "Abrir en el CRM"</td><td>"Recibimos tu consulta, te escribimos en 24 hs"</td><td>Bandeja de Consultas → Lead</td></tr>
+          <tr><td>Dominio / nuevo proyecto</td><td>Buscador de la lupa (Whois)</td><td>Lo mismo + el dominio y qué quiere armar</td><td>A los dos</td><td>Igual que el anterior</td><td>Bandeja de Consultas → Lead</td></tr>
+          <tr><td>Suscripción</td><td>Bloque "No te Quedes Afuera del Futuro" de todas las páginas</td><td>Email y desde qué página se suscribió</td><td>Resumen (opcional)</td><td>Bienvenida</td><td>Lista de suscriptores en el CRM</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-cuidados">
+    <header><h2 id="t-cuidados">Cuidados que ya vienen incluidos</h2></header>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Tema</th><th>Cómo se resuelve</th></tr></thead>
+        <tbody>
+          <tr><td>Bots y spam</td><td>Un campo trampa invisible y un límite de envíos por IP. Lo que parezca bot se guarda aparte y no genera mails.</td></tr>
+          <tr><td>Que no nos pisemos</td><td>"La tomo yo" marca la consulta con el nombre de quien la agarró, a la vista de los dos.</td></tr>
+          <tr><td>Que no se pierda nada</td><td>La consulta se guarda antes de mandar los mails. Si el mail falla, igual está en el CRM.</td></tr>
+          <tr><td>Datos personales</td><td>El formulario enlaza la política de privacidad del sitio. Los datos quedan en nuestra base, no en herramientas de terceros.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-falta">
+    <header><h2 id="t-falta">Qué hace falta para arrancar</h2></header>
+    <div class="necesita">
+      <div class="item"><span class="n">1</span><div><p><b>Casilla de mail de la agencia</b></p><p>Crearla en el cPanel de Turbonube (Cuentas de correo), por ejemplo hola@studiocomplex.com.ar. Desde ahí salen los mails por SMTP y es la dirección que va a ver el cliente.</p></div><span class="quien q-socios">Socios</span></div>
+      <div class="item"><span class="n">2</span><div><p><b>Definir "prospecto"</b></p><p>Propuesta: la consulta pasa directo a <b>Leads</b> (tablero de ventas), porque quien escribe ya está interesado. Prospectos queda para las listas en frío por campaña.</p></div><span class="quien q-socios">Socios</span></div>
+      <div class="item"><span class="n">3</span><div><p><b>Acceso para trabajar el CRM desde la Mac</b></p><p>Instalar Node y traer los datos de conexión a la base (desde Vercel o Neon). Lo prepara nudge.</p></div><span class="quien q-nudge">nudge</span></div>
+      <div class="item"><span class="n">4</span><div><p><b>Construirlo y probarlo</b></p><p>Bandeja de Consultas, "La tomo yo", pasar a lead, mails y conexión de los tres formularios de la web. Se prueba de punta a punta antes de activarlo.</p></div><span class="quien q-nudge">nudge</span></div>
+    </div>
+  </section>
+
+  <footer>Plan armado el 29/9/2026. Todavía no está construido: esto es lo que vamos a hacer.</footer>
+</div>
+</body>
+</html>
