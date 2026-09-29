@@ -134,10 +134,20 @@
     </div>
   </section>
 
+  <section class="seccion" aria-labelledby="t-conexion">
+    <header><h2 id="t-conexion">¿Cómo se conecta el formulario con el CRM?</h2><p>La web y el CRM son dos cosas separadas que se hablan por internet. La web vive en Turbonube; el CRM vive en Vercel y tiene la base de datos.</p></header>
+    <div class="flujo">
+      <div class="paso"><h3>La web manda los datos</h3><p>Cuando la persona toca "Enviar", la web manda un envío a una dirección del CRM (algo como crm…/api/consulta). Es igual que cuando un formulario manda un mail, pero en vez de a una casilla, va al CRM.</p><span class="donde">Web → CRM</span></div>
+      <div class="paso"><h3>El CRM revisa y guarda</h3><p>Comprueba que venga de studiocomplex.com.ar y no de un bot, y guarda la consulta en la base de datos. Desde ese momento aparece en la bandeja del dashboard.</p><span class="donde">CRM · base de datos</span></div>
+      <div class="paso"><h3>El CRM manda los mails</h3><p>Se conecta a hola@studiocomplex.com.ar por SMTP (el mismo sistema que usa Outlook para enviar) y manda el aviso a los dos y la respuesta automática.</p><span class="donde">CRM → casilla</span></div>
+      <div class="paso"><h3>La clave queda protegida</h3><p>La contraseña de la casilla se guarda solo en el CRM, como dato secreto de Vercel. La web nunca la tiene, así que nadie puede verla mirando el código de la página.</p><span class="donde">Seguridad</span></div>
+    </div>
+  </section>
+
   <section class="seccion" aria-labelledby="t-falta">
     <header><h2 id="t-falta">Qué hace falta para arrancar</h2></header>
     <div class="necesita">
-      <div class="item"><span class="n">1</span><div><p><b>Casilla de mail de la agencia</b></p><p>Crearla en el cPanel de Turbonube (Cuentas de correo), por ejemplo hola@studiocomplex.com.ar. Desde ahí salen los mails por SMTP y es la dirección que va a ver el cliente.</p></div><span class="quien q-socios">Socios</span></div>
+      <div class="item"><span class="n">1</span><div><p><b>Casilla de mail de la agencia</b></p><p>hola@studiocomplex.com.ar ya está creada y probada: el envío por SMTP funciona. Es la dirección desde la que salen los mails y la que va a ver el cliente.</p></div><span class="quien q-nudge" style="color:#34d399;background:rgba(52,211,153,.13)">✓ Lista</span></div>
       <div class="item"><span class="n">2</span><div><p><b>Definir "prospecto"</b></p><p>Propuesta: la consulta pasa directo a <b>Leads</b> (tablero de ventas), porque quien escribe ya está interesado. Prospectos queda para las listas en frío por campaña.</p></div><span class="quien q-socios">Socios</span></div>
       <div class="item"><span class="n">3</span><div><p><b>Acceso para trabajar el CRM desde la Mac</b></p><p>Instalar Node y traer los datos de conexión a la base (desde Vercel o Neon). Lo prepara nudge.</p></div><span class="quien q-nudge">nudge</span></div>
       <div class="item"><span class="n">4</span><div><p><b>Construirlo y probarlo</b></p><p>Bandeja de Consultas, "La tomo yo", pasar a lead, mails y conexión de los tres formularios de la web. Se prueba de punta a punta antes de activarlo.</p></div><span class="quien q-nudge">nudge</span></div>
