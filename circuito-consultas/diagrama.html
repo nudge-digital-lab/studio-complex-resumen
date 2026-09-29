@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Diagrama circuito</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&display=swap">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1600px;height:840px;background:#0a0e13;color:#c3c9cf;font-family:Figtree,system-ui,sans-serif;padding:56px 64px;position:relative;overflow:hidden}
+body::before{content:"";position:absolute;inset:0;background:radial-gradient(30% 40% at 10% 10%,rgba(242,128,30,.16),transparent 70%),radial-gradient(30% 40% at 90% 90%,rgba(34,211,238,.12),transparent 70%)}
+h1{position:relative;color:#f4f6f7;font-size:46px;font-weight:800;letter-spacing:-.02em}
+h1 span{background:linear-gradient(100deg,#F2801E 0 40%,#22D3EE 65%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{position:relative;font-size:20px;margin-top:8px;color:#8a949e}
+.grid{position:relative;display:grid;grid-template-columns:300px 60px 300px 60px 330px 60px 300px;margin-top:44px;align-items:stretch}
+.col{display:grid;gap:14px;align-content:start}
+.num{width:40px;height:40px;border-radius:50%;background:#F2801E;color:#1a0d05;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center}
+.tit{color:#f4f6f7;font-weight:800;font-size:24px;line-height:1.15}
+.card{background:#10161d;border-radius:18px;padding:16px 18px;box-shadow:inset 0 0 0 1px #1f2833;font-size:17px;line-height:1.4}
+.card b{color:#f4f6f7;display:block;font-size:18px;margin-bottom:2px}
+.flecha{display:flex;align-items:center;justify-content:center;color:#F2801E;font-size:40px;font-weight:800;padding-top:30px}
+.chip{display:inline-block;font-size:14px;font-weight:700;padding:5px 11px;border-radius:999px;margin:6px 6px 0 0}
+.c1{background:rgba(34,211,238,.12);color:#22D3EE}.c2{background:rgba(242,128,30,.15);color:#F2801E}
+.c3{background:rgba(52,211,153,.13);color:#34d399}.c4{background:#151c25;color:#8a949e}
+.persona{display:flex;gap:10px;margin-top:10px}
+.persona span{flex:1;text-align:center;padding:10px 6px;border-radius:12px;background:#151c25;font-weight:700;color:#f4f6f7}
+.persona span.on{background:rgba(242,128,30,.16);color:#F2801E;box-shadow:inset 0 0 0 1px rgba(242,128,30,.5)}
+.btn{display:inline-block;margin-top:10px;padding:9px 16px;border-radius:10px;background:#F2801E;color:#1a0d05;font-weight:800;font-size:16px}
+.ok{background:linear-gradient(180deg,rgba(52,211,153,.12),#10161d);box-shadow:inset 0 0 0 1px rgba(52,211,153,.35)}
+.pie{position:absolute;left:64px;right:64px;bottom:48px;display:flex;gap:16px}
+.pie div{flex:1;background:#10161d;border-radius:14px;padding:14px 18px;box-shadow:inset 0 0 0 1px #1f2833;font-size:16.5px}
+.pie b{color:#fbbf24}
+.logo{position:absolute;right:64px;top:62px;color:#f4f6f7;font-weight:800;font-size:22px;letter-spacing:-.01em}
+.logo i{font-style:normal;color:#F2801E}
+</style></head><body>
+<div class="logo">Studio <i>Complex</i></div>
+<h1>Cada consulta de la web, <span>directo al CRM</span></h1>
+<p class="sub">Así va a funcionar: nadie carga nada a mano y nunca le escribimos los dos al mismo cliente.</p>
+
+<div class="grid">
+  <div class="col">
+    <div class="num">1</div><div class="tit">Alguien escribe en la web</div>
+    <div class="card"><b>Contanos tu caso</b>El formulario principal</div>
+    <div class="card"><b>Dominio / nuevo proyecto</b>Desde el buscador Whois</div>
+    <div class="card"><b>Suscripción</b>Solo el email → lista de suscriptores + mail de bienvenida</div>
+  </div>
+  <div class="flecha">→</div>
+  <div class="col">
+    <div class="num">2</div><div class="tit">El CRM la guarda y avisa</div>
+    <div class="card"><b>Queda guardada</b>Nombre, email, WhatsApp, mensaje, página y anuncio de origen</div>
+    <div class="card"><b>✉ Mail a Jorge y Seba</b>"Nueva consulta" con botón para abrirla</div>
+    <div class="card"><b>✉ Respuesta automática</b>"Recibimos tu consulta, te escribimos en 24 hs"</div>
+  </div>
+  <div class="flecha">→</div>
+  <div class="col">
+    <div class="num">3</div><div class="tit">Uno de los dos la toma</div>
+    <div class="card"><b>Bandeja "Consultas" del dashboard</b>Juan Pérez · Tienda online<br><span class="btn">La tomo yo</span>
+      <div class="persona"><span>Jorge</span><span class="on">Seba ✓ la está viendo</span></div></div>
+    <div class="card"><b>Estados</b><span class="chip c1">Nueva</span><span class="chip c2">Tomada</span><span class="chip c3">Pasada a lead</span><span class="chip c4">Descartada</span></div>
+  </div>
+  <div class="flecha">→</div>
+  <div class="col">
+    <div class="num">4</div><div class="tit">Pasa a lead con un botón</div>
+    <div class="card ok"><b>Tablero de ventas</b>Se crea el lead con todos los datos, asignado a quien la tomó, y el mensaje queda como primera nota.<br><span class="btn">Pasar a lead</span></div>
+    <div class="card"><b>Y sigue el camino de siempre</b>Contactado → Negociando → Propuesta → Ganado</div>
+  </div>
+</div>
+
+<div class="pie">
+  <div><b>Antibots:</b> campo trampa invisible + límite de envíos. El spam no genera mails.</div>
+  <div><b>No se pierde nada:</b> se guarda antes de mandar el mail. Si el mail falla, igual está en el CRM.</div>
+  <div><b>Falta:</b> la casilla de mail de la agencia (ej. hola@studiocomplex.com.ar) para enviar por SMTP.</div>
+</div>
+</body></html>
