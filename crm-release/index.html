@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>CRM: documentación del release</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13; --sup: #10161d; --sup-2: #151c25; --borde: #1f2833;
+    --texto: #c3c9cf; --texto-2: #8a949e; --titulo: #f4f6f7;
+    --naranja: #F2801E; --cian: #22D3EE; --verde: #34d399; --ambar: #fbbf24;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 15.5px/1.55 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; padding-inline: 16px; -webkit-font-smoothing: antialiased; }
+  .env { max-width: 1000px; margin: 0 auto; padding-block: 40px 70px; display: grid; gap: 44px; }
+  h1, h2, h3 { color: var(--titulo); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  p { margin: 0; }
+  b { color: var(--titulo); }
+  code { font-family: var(--mono); font-size: 12.5px; color: var(--cian); background: var(--sup-2); padding: 1px 6px; border-radius: 5px; }
+  .just { text-align: justify; hyphens: auto; }
+
+  .cab { display: grid; gap: 14px; position: relative; }
+  .cab::before { content: ""; position: absolute; inset: -60px -40px auto; height: 260px; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 60% at 12% 30%, rgba(242,128,30,.2), transparent 70%), radial-gradient(40% 60% at 88% 20%, rgba(34,211,238,.14), transparent 70%); }
+  .eti { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2rem, 5.4vw, 3rem); line-height: 1.04; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 40%, var(--cian) 65%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .baj { font-size: 17px; max-width: 68ch; }
+  .datos { display: flex; flex-wrap: wrap; gap: 10px 26px; padding-top: 14px; border-top: 1px solid var(--borde); }
+  .datos div { display: grid; }
+  .datos b { font-size: 24px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .datos span { font-size: 12.5px; color: var(--texto-2); }
+
+  .sec { display: grid; gap: 18px; }
+  .sec > header { display: grid; gap: 6px; }
+  h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); line-height: 1.12; }
+  .sec > header p { color: var(--texto-2); max-width: 70ch; }
+
+  .mods { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .mods { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 980px) { .mods { grid-template-columns: repeat(3, 1fr); } }
+  .mod { background: linear-gradient(180deg, color-mix(in oklab, #fff 4%, var(--sup)), var(--sup)); border-radius: 16px; padding: 16px 18px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 8px; align-content: start; }
+  .mod h3 { font-size: 16.5px; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .mod p { font-size: 14px; }
+  .mod .ruta { font-family: var(--mono); font-size: 12px; color: var(--texto-2); }
+  .tag { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .t-ok { color: var(--verde); background: rgba(52,211,153,.12); }
+  .t-pa { color: var(--ambar); background: rgba(251,191,36,.12); }
+  .t-no { color: var(--texto-2); background: var(--sup-2); }
+
+  .trazo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 700; color: var(--titulo); font-size: 15px; }
+  .trazo span { background: var(--sup); padding: 9px 14px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .trazo i { font-style: normal; color: var(--naranja); font-weight: 800; }
+  .trazo small { display: block; font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--cian); }
+
+  .tw { overflow-x: auto; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--borde); background: var(--sup); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 720px; }
+  th, td { padding: 11px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--borde); }
+  th { font-size: 11.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--texto-2); background: var(--sup-2); }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { white-space: nowrap; }
+
+  .hist { display: grid; gap: 0; }
+  .h { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding-block: 12px; border-top: 1px solid var(--borde); font-size: 14.5px; }
+  .h:first-child { border-top: 0; padding-top: 0; }
+  .h .f { font-family: var(--mono); font-size: 12.5px; color: var(--naranja); padding-top: 2px; }
+  @media (max-width: 560px) { .h { grid-template-columns: 1fr; gap: 2px; } }
+  footer { font-size: 13px; color: var(--texto-2); }
+</style>
+</head>
+<body>
+<div class="env">
+
+  <header class="cab">
+    <span class="eti">Studio Complex CRM · Documentación del release · 29/9/2026</span>
+    <h1>Lo que el CRM <span>ya hace hoy</span></h1>
+    <p class="baj just">Documentación de la versión en producción, armada leyendo el código del repositorio <code>nudge-digital-lab/studio-complex-crm</code>: las pantallas, el modelo de datos y las acciones que existen. Es el punto de partida para cualquier propuesta nueva: primero leer esto, después proponer.</p>
+    <div class="datos">
+      <div><b>7</b><span>módulos en producción</span></div>
+      <div><b>15</b><span>tablas en la base</span></div>
+      <div><b>35</b><span>acciones del sistema</span></div>
+      <div><b>25</b><span>cambios registrados (7 al 25/9)</span></div>
+    </div>
+  </header>
+
+  <section class="sec" aria-labelledby="t1">
+    <header><h2 id="t1">El recorrido que ya está construido</h2><p class="just">Cada paso existe en el código, con la acción que lo mueve.</p></header>
+    <div class="trazo">
+      <span>Prospecto<small>Board · BoardRow</small></span><i>→</i>
+      <span>Lead<small>promoteRowToLead</small></span><i>→</i>
+      <span>Negociación y presupuesto<small>LeadActivity · Quote</small></span><i>→</i>
+      <span>Cliente<small>closeLeadAsClient</small></span><i>→</i>
+      <span>Servicios y vencimientos<small>ClientService.renewalDate</small></span>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t2">
+    <header><h2 id="t2">Módulos</h2></header>
+    <div class="mods">
+      <div class="mod"><h3>Prospectos <span class="tag t-ok">En producción</span></h3><p class="just">Tableros tipo planilla, uno por campaña, con columnas tipadas (texto, selector, casilla, fecha), pegado de filas y botón "Promover" a lead.</p><span class="ruta">/prospectos</span></div>
+      <div class="mod"><h3>Leads <span class="tag t-ok">En producción</span></h3><p class="just">Tablero arrastrable por etapa (Contactado, Negociando, Propuesta enviada, Ganado, Perdido), responsable asignado, valor del negocio, próxima acción con urgencia, favoritos e historial de notas, llamadas y mails.</p><span class="ruta">/leads</span></div>
+      <div class="mod"><h3>Presupuestos <span class="tag t-ok">En producción</span></h3><p class="just">Numeración anual sin repetidos, ítems con horas y tarifa congelada, etapas y formas de pago, documento A4 listo para PDF. Un presupuesto enviado no se puede modificar.</p><span class="ruta">/presupuestos</span></div>
+      <div class="mod"><h3>Clientes <span class="tag t-ok">En producción</span></h3><p class="just">Ficha en pestañas: servicios, tareas con responsable, fecha y estado (Pendiente, En curso, Hecha), documentos como links (Drive) y acceso al portal. Importador y duplicado.</p><span class="ruta">/clientes</span></div>
+      <div class="mod"><h3>Vencimientos <span class="tag t-pa">Falta activar mails</span></h3><p class="just">Lista de todo lo que vence (hosting, dominio, pauta) con su costo. El aviso diario por mail está programado en Vercel, pero no manda nada hasta cargar la clave del servicio de envío.</p><span class="ruta">/vencimientos</span></div>
+      <div class="mod"><h3>Portal del cliente <span class="tag t-pa">Falta prueba real</span></h3><p class="just">El cliente entra con su usuario, ve el estado de su proyecto y conecta su Google Analytics. Implementado completo, falta probarlo con una cuenta real.</p><span class="ruta">/portal</span></div>
+      <div class="mod"><h3>Inicio y cuentas <span class="tag t-ok">En producción</span></h3><p class="just">Tablero con gráficos y contadores, buscador, modo claro y oscuro, roles Dueño, Equipo y Cliente, y cambio de contraseña.</p><span class="ruta">/ · /cuenta</span></div>
+      <div class="mod"><h3>Google Ads y Meta Ads <span class="tag t-no">Sin empezar</span></h3><p class="just">Frenados por permisos de terceros (token de desarrollador y revisión de app), no por código.</p><span class="ruta">portal</span></div>
+      <div class="mod"><h3>Consultas de la web <span class="tag t-no">Planificado</span></h3><p class="just">Bandeja con "La tomo yo" y paso a lead. Es el próximo desarrollo.</p><span class="ruta">/consultas</span></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t3">
+    <header><h2 id="t3">Lo que propone el PDF, contra el código</h2><p class="just">Tabla por tabla, lo que el documento de arquitectura plantea como nuevo y dónde está ya resuelto.</p></header>
+    <div class="tw">
+      <table>
+        <thead><tr><th>El PDF propone</th><th>En el código</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><code>clients</code></td><td><code>Client</code>, con estado Activo / Pausado / Baja y vínculo al lead de origen</td><td><span class="tag t-ok">Ya existe</span></td></tr>
+          <tr><td><code>services</code></td><td><code>ClientService</code>, con fecha de renovación y costo</td><td><span class="tag t-ok">Ya existe</span></td></tr>
+          <tr><td><code>tasks</code></td><td><code>ClientTask</code>, con responsable, fecha y estado</td><td><span class="tag t-ok">Ya existe</span></td></tr>
+          <tr><td><code>activities</code></td><td><code>LeadActivity</code>, con autor, tipo y fecha</td><td><span class="tag t-ok">Ya existe</span></td></tr>
+          <tr><td>Documentos en Drive</td><td><code>ClientDocument</code>, que guarda el link y quién lo subió</td><td><span class="tag t-ok">Ya existe</span></td></tr>
+          <tr><td>Estado "Bloqueado"</td><td>No existe: las tareas tienen Pendiente, En curso y Hecha</td><td><span class="tag t-pa">Se suma</span></td></tr>
+          <tr><td><code>projects</code></td><td>No existe: todo cuelga del cliente</td><td><span class="tag t-pa">Se suma, liviano</span></td></tr>
+          <tr><td><code>repositories</code>, <code>branches</code>, <code>pull_requests</code></td><td>Viven en GitHub. Duplicarlos en la base crea dos versiones del mismo dato</td><td><span class="tag t-no">No corresponde</span></td></tr>
+          <tr><td><code>decisions</code></td><td>Se registran como nota en la actividad</td><td><span class="tag t-no">No hace falta</span></td></tr>
+          <tr><td>—</td><td>No menciona prospectos, presupuestos ni portal del cliente, que ya están en producción</td><td><span class="tag t-no">Omitido</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t4">
+    <header><h2 id="t4">Historial de versiones</h2></header>
+    <div class="hist">
+      <div class="h"><span class="f">7/9</span><p class="just"><b>Primera versión:</b> prospectos, leads y clientes. Diseño con la marca, menú en celular, usuario Dueño para Sebastián.</p></div>
+      <div class="h"><span class="f">8/9</span><p class="just"><b>Inicio con gráficos,</b> leads arrastrables, ficha de cliente en pestañas, columnas tipadas, importador, modo claro y oscuro, valor del negocio y próxima acción.</p></div>
+      <div class="h"><span class="f">12/9</span><p class="just"><b>Avisos de vencimientos</b> programados y <b>Google Analytics</b> en el portal del cliente.</p></div>
+      <div class="h"><span class="f">14/9</span><p class="just">Leads editables, favoritos y mejor detección del nombre al promover.</p></div>
+      <div class="h"><span class="f">25/9</span><p class="just"><b>Módulo de presupuestos</b> completo.</p></div>
+      <div class="h"><span class="f">Próximo</span><p class="just">Consultas de la web, estado "Bloqueado" y proyectos dentro del cliente.</p></div>
+    </div>
+  </section>
+
+  <footer>Fuente: <code>prisma/schema.prisma</code>, <code>lib/actions/</code>, <code>app/</code> y el historial de commits del repositorio. Actualizado el 29/9/2026.</footer>
+</div>
+</body>
+</html>
