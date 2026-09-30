@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Cómo trabajamos con código</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13; --sup: #10161d; --sup-2: #151c25; --borde: #1f2833;
+    --texto: #c3c9cf; --texto-2: #8a949e; --titulo: #f4f6f7;
+    --naranja: #F2801E; --cian: #22D3EE; --verde: #34d399; --ambar: #fbbf24;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 15.5px/1.55 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; padding-inline: 16px; -webkit-font-smoothing: antialiased; }
+  .env { max-width: 1000px; margin: 0 auto; padding-block: 40px 70px; display: grid; gap: 44px; }
+  h1, h2, h3 { color: var(--titulo); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  p { margin: 0; }
+  b { color: var(--titulo); }
+  code { font-family: var(--mono); font-size: 13px; color: var(--cian); background: var(--sup-2); padding: 1px 6px; border-radius: 5px; }
+  .just { text-align: justify; hyphens: auto; }
+
+  .cab { display: grid; gap: 12px; position: relative; }
+  .cab::before { content: ""; position: absolute; inset: -60px -40px auto; height: 260px; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 60% at 12% 30%, rgba(242,128,30,.2), transparent 70%), radial-gradient(40% 60% at 88% 20%, rgba(34,211,238,.14), transparent 70%); }
+  .eti { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2rem, 5.4vw, 3rem); line-height: 1.04; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 40%, var(--cian) 65%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .baj { font-size: 17px; max-width: 66ch; }
+
+  .sec { display: grid; gap: 18px; }
+  .sec > header { display: grid; gap: 6px; }
+  h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); line-height: 1.12; }
+  .sec > header p { color: var(--texto-2); max-width: 70ch; }
+
+  /* Diagrama del flujo */
+  .flujo { display: grid; gap: 10px; grid-template-columns: 1fr; }
+  @media (min-width: 880px) { .flujo { grid-template-columns: repeat(6, 1fr); } }
+  .p { position: relative; background: linear-gradient(180deg, color-mix(in oklab, #fff 4%, var(--sup)), var(--sup)); border-radius: 16px; padding: 14px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 6px; align-content: start; }
+  .p .n { font-size: 11.5px; font-weight: 800; color: var(--naranja); letter-spacing: .08em; }
+  .p h3 { font-size: 16px; }
+  .p p { font-size: 13.5px; }
+  .p.clave { box-shadow: inset 0 0 0 1px rgba(34,211,238,.5); }
+  @media (min-width: 880px) { .p:not(:last-child)::after { content: "→"; position: absolute; right: -10px; top: 14px; color: var(--naranja); font-weight: 800; z-index: 1; } }
+
+  .ok { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .ok { grid-template-columns: 1fr 1fr; } }
+  .caja { background: var(--sup); border-radius: 16px; padding: 18px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 8px; align-content: start; }
+  .caja h3 { font-size: 16.5px; display: flex; gap: 8px; align-items: center; }
+  .caja p { font-size: 14.5px; }
+  .tag { font-size: 11.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+  .t-ok { color: var(--verde); background: rgba(52,211,153,.12); }
+  .t-aj { color: var(--ambar); background: rgba(251,191,36,.12); }
+
+  .tw { overflow-x: auto; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--borde); background: var(--sup); }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 720px; }
+  th, td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--borde); }
+  th { font-size: 11.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--texto-2); background: var(--sup-2); }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--titulo); font-weight: 600; }
+
+  .term { background: #070a0e; border-radius: 16px; padding: 18px 20px; box-shadow: inset 0 0 0 1px var(--borde); font-family: var(--mono); font-size: 13.5px; line-height: 1.8; color: #d6dde3; overflow-x: auto; white-space: pre; }
+  .term .c { color: var(--texto-2); }
+  .term .k { color: var(--naranja); }
+
+  .reglas { display: grid; gap: 10px; grid-template-columns: 1fr; list-style: none; margin: 0; padding: 0; counter-reset: r; }
+  @media (min-width: 760px) { .reglas { grid-template-columns: 1fr 1fr; } }
+  .reglas li { counter-increment: r; display: grid; grid-template-columns: 34px 1fr; gap: 12px; background: var(--sup); border-radius: 14px; padding: 14px 16px; box-shadow: inset 0 0 0 1px var(--borde); font-size: 14.5px; }
+  .reglas li::before { content: counter(r); width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--sup-2); color: var(--naranja); }
+
+  .pasos { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+  footer { font-size: 13px; color: var(--texto-2); }
+</style>
+</head>
+<body>
+<div class="env">
+
+  <header class="cab">
+    <span class="eti">Studio Complex · Forma de trabajo · 29/9/2026</span>
+    <h1>Cómo trabajamos juntos <span>cuando hay código</span></h1>
+    <p class="baj just">Un solo repositorio por proyecto en GitHub, los dos con acceso, y nadie toca la versión publicada sin que el otro lo vea. Así cualquiera puede hacer un cambio sin pisar el trabajo del otro, y siempre sabemos qué cambió, quién lo hizo y cómo volver atrás.</p>
+  </header>
+
+  <section class="sec" aria-labelledby="t1">
+    <header><h2 id="t1">El recorrido de un cambio</h2></header>
+    <div class="flujo">
+      <div class="p"><span class="n">01</span><h3>Traer lo último</h3><p class="just">Antes de empezar, bajar lo que haya cambiado en GitHub.</p></div>
+      <div class="p"><span class="n">02</span><h3>Abrir una rama</h3><p class="just">Una copia aparte para este cambio, con nombre: <code>seba/precios</code>.</p></div>
+      <div class="p"><span class="n">03</span><h3>Trabajar y guardar</h3><p class="just">Cada avance es un commit con un mensaje que diga qué y por qué.</p></div>
+      <div class="p"><span class="n">04</span><h3>Subir y pedir revisión</h3><p class="just">Push de la rama y un Pull Request en GitHub.</p></div>
+      <div class="p clave"><span class="n">05</span><h3>El otro revisa</h3><p class="just">En el CRM, Vercel arma una versión de prueba de ese PR para verlo andando.</p></div>
+      <div class="p"><span class="n">06</span><h3>Merge y publicación</h3><p class="just">Aprobado, se une a la rama principal y recién ahí se publica.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t2">
+    <header><h2 id="t2">Tus dos diagramas</h2></header>
+    <div class="ok">
+      <div class="caja"><h3>El del CRM <span class="tag t-ok">Correcto</span></h3><p class="just">Rama de cada uno → PR → rama principal → Vercel es exactamente el flujo. Dos precisiones: la rama principal del CRM se llama <code>master</code>, no <code>main</code>, y Vercel ya publica solo cada vez que algo entra a <code>master</code>. Por eso nada entra sin PR.</p></div>
+      <div class="caja"><h3>El de "repo de tu socio" <span class="tag t-aj">Un ajuste</span></h3><p class="just">No hay un repo mío y uno tuyo: hay <b>uno solo, compartido</b>, y los dos somos colaboradores. No hace falta copiar el repositorio (fork). Clonás el mismo, trabajás en tu rama y el resto de tu esquema queda igual.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t3">
+    <header><h2 id="t3">Según el proyecto, cambia dónde se publica</h2><p class="just">El recorrido es el mismo. Lo único que cambia es el último paso.</p></header>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Proyecto</th><th>Rama principal</th><th>Cómo se publica</th></tr></thead>
+        <tbody>
+          <tr><td>CRM</td><td><code>master</code></td><td>Solo: Vercel publica cada merge. Cada PR tiene su versión de prueba.</td></tr>
+          <tr><td>Web de Studio Complex</td><td><code>main</code></td><td>Después del merge, <code>tools/publicar.py</code> sube a studiocomplex.com.ar solo lo que cambió. Se niega a publicar si hay cambios sin guardar.</td></tr>
+          <tr><td>Clientes con código<br><small>(sitio a medida, tema de Tiendanube, plugin)</small></td><td><code>main</code></td><td>Un repositorio por cliente. Se publica por FTP, Vercel o la herramienta de Tiendanube, según el caso.</td></tr>
+          <tr><td>Clientes sin código<br><small>(panel de Tiendanube, WordPress con constructor, Ads)</small></td><td>No aplica</td><td>No hay Git. El cambio queda registrado en la tarea del cliente en el CRM.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t4">
+    <header><h2 id="t4">El día a día, en comandos</h2><p class="just">Lo mismo se puede hacer con botones en GitHub Desktop o en VS Code. Esto es lo que pasa por debajo.</p></header>
+<div class="term"><span class="c"># 1. Traer lo último (en el CRM la rama principal es master)</span>
+<span class="k">git</span> switch main
+<span class="k">git</span> pull
+
+<span class="c"># 2. Abrir una rama para este cambio</span>
+<span class="k">git</span> switch -c seba/precios-servicios
+
+<span class="c"># 3. Trabajar y guardar cada avance</span>
+<span class="k">git</span> add .
+<span class="k">git</span> commit -m "Precios en la página de Tiendas"
+
+<span class="c"># 4. Subir la rama y abrir el Pull Request en GitHub</span>
+<span class="k">git</span> push -u origin seba/precios-servicios</div>
+  </section>
+
+  <section class="sec" aria-labelledby="t5">
+    <header><h2 id="t5">Reglas cortas</h2></header>
+    <ul class="reglas">
+      <li><span class="just">Nadie trabaja directo sobre la rama principal. Toda la vida, rama y PR.</span></li>
+      <li><span class="just">Una rama por cambio, con quién y qué: <code>jorge/whois</code>, <code>seba/seo-home</code>.</span></li>
+      <li><span class="just">PR chicos: un tema por vez. Se revisan en el día y se revisan de verdad.</span></li>
+      <li><span class="just">Solo se publica desde la rama principal, nunca desde una rama.</span></li>
+      <li><span class="just">Contraseñas y claves nunca van al repositorio: van en <code>.env</code>, que Git ignora, o en Vercel.</span></li>
+      <li><span class="just">Si los dos tocamos lo mismo, Git avisa (conflicto). Se trae lo último a la rama, se eligen las líneas correctas y se prueba antes del merge.</span></li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="t6">
+    <header><h2 id="t6">Para arrancar</h2></header>
+    <div class="caja">
+      <ol class="pasos">
+        <li><b>Pasame tu usuario de GitHub</b> y te sumo como colaborador a la web y al CRM.</li>
+        <li><b>Aceptá la invitación</b> que te llega por mail.</li>
+        <li><b>Instalá Git y GitHub Desktop</b> (o VS Code) y cloná los dos repositorios.</li>
+        <li><b>Hacé un primer cambio chico</b> con su rama y su PR, y lo revisamos juntos.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>Repositorios: nudge-digital-lab/studio-complex-website y nudge-digital-lab/studio-complex-crm.</footer>
+</div>
+</body>
+</html>
