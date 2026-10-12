@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Directores con IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13; --sup: #10161d; --sup-2: #151c25; --borde: #1f2833;
+    --texto: #c3c9cf; --texto-2: #8a949e; --titulo: #f4f6f7;
+    --naranja: #F2801E; --cian: #22D3EE; --verde: #34d399; --ambar: #fbbf24; --rojo: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.6 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; padding-inline: 18px; -webkit-font-smoothing: antialiased; }
+  .envoltura { max-width: 1040px; margin: 0 auto; padding-block: 44px 90px; display: grid; gap: 52px; }
+  h1, h2, h3 { color: var(--titulo); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  p { margin: 0; }
+  b { color: var(--titulo); }
+
+  .cabeza { display: grid; gap: 14px; position: relative; }
+  .cabeza::before { content: ""; position: absolute; inset: -60px -40px auto; height: 280px; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 60% at 15% 30%, rgba(242,128,30,.2), transparent 70%), radial-gradient(40% 60% at 85% 20%, rgba(34,211,238,.14), transparent 70%); }
+  .etiqueta { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2rem, 5.6vw, 3.2rem); line-height: 1.05; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 42%, var(--cian) 62% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bajada { font-size: 18px; max-width: 68ch; text-align: justify; hyphens: auto; }
+
+  .seccion { display: grid; gap: 22px; }
+  .seccion > header { display: grid; gap: 6px; }
+  h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.1; }
+  .seccion > header p { color: var(--texto-2); max-width: 70ch; text-align: justify; hyphens: auto; }
+
+  .diagrama { background: var(--sup); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--borde); padding: 18px; overflow-x: auto; }
+  .diagrama svg { display: block; width: 100%; min-width: 640px; height: auto; }
+
+  .flujo { display: grid; gap: 14px; grid-template-columns: 1fr; counter-reset: paso; }
+  @media (min-width: 900px) { .flujo { grid-template-columns: repeat(4, 1fr); } }
+  .paso { counter-increment: paso; position: relative; background: linear-gradient(180deg, color-mix(in oklab, #fff 4%, var(--sup)), var(--sup)); border-radius: 20px; padding: 22px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 10px; align-content: start; }
+  .paso::before { content: counter(paso); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--naranja); color: #1a0d05; }
+  .paso h3 { font-size: 18px; }
+  .paso p { font-size: 15px; text-align: justify; hyphens: auto; }
+  .paso .donde { justify-self: start; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; color: var(--cian); background: rgba(34,211,238,.11); }
+  @media (min-width: 900px) { .paso:not(:last-child)::after { content: "→"; position: absolute; right: -13px; top: 30px; color: var(--naranja); font-weight: 800; z-index: 1; } }
+
+  .tabla-wrap { overflow-x: auto; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--borde); background: var(--sup); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 760px; }
+  th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--borde); }
+  th { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-2); background: var(--sup-2); }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--titulo); font-weight: 700; white-space: nowrap; }
+  td small { display: block; color: var(--texto-2); font-size: 13px; margin-top: 2px; }
+  .primero { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: var(--naranja); background: rgba(242,128,30,.14); margin-left: 6px; }
+
+  .base { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .base { grid-template-columns: repeat(3, 1fr); } }
+  .base div { background: var(--sup); border-radius: 16px; padding: 18px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 6px; align-content: start; }
+  .base h3 { font-size: 16px; }
+  .base p { font-size: 14.5px; color: var(--texto-2); text-align: justify; hyphens: auto; }
+
+  .reglas { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .reglas li { background: var(--sup); border-radius: 14px; padding: 14px 18px; box-shadow: inset 0 0 0 1px var(--borde); text-align: justify; hyphens: auto; }
+
+  .necesita { display: grid; gap: 12px; }
+  .item { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: start; background: var(--sup); border-radius: 14px; padding: 16px 18px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .item .n { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--sup-2); color: var(--naranja); }
+  .item p + p { margin-top: 4px; font-size: 14.5px; color: var(--texto-2); text-align: justify; hyphens: auto; }
+  .quien { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .q-socios { color: var(--ambar); background: rgba(251,191,36,.12); }
+  .q-nudge { color: var(--cian); background: rgba(34,211,238,.11); }
+  @media (max-width: 560px) { .item { grid-template-columns: auto 1fr; } .item .quien { grid-column: 2; justify-self: start; } }
+
+  footer { font-size: 13.5px; color: var(--texto-2); border-top: 1px solid var(--borde); padding-top: 20px; }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <header class="cabeza">
+    <span class="etiqueta">Plan · Studio Complex · 11 de octubre de 2026</span>
+    <h1>Un director con IA por sector, <span>todos trabajando sobre el CRM.</span></h1>
+    <p class="bajada">La idea: armar un agente de IA que haga de director de cada área (marketing, ventas, onboarding y administración). Cada uno lee los datos reales de su área, propone el plan de la semana y deja las tareas cargadas en el CRM. Nosotros dos revisamos y aprobamos desde el panel, igual que hoy. Arrancamos por el director de marketing.</p>
+  </header>
+
+  <div class="diagrama" role="img" aria-label="Los socios aprueban; los directores trabajan a través del MCP del CRM y de los MCP de Meta, Google y Gmail">
+    <svg viewBox="0 0 1000 470" font-family="Figtree, system-ui, sans-serif">
+      <defs>
+        <marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a949e"/></marker>
+      </defs>
+      <!-- socios -->
+      <rect x="330" y="16" width="340" height="62" rx="14" fill="rgba(251,191,36,.10)" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="500" y="44" text-anchor="middle" fill="#f4f6f7" font-size="17" font-weight="700">Jorge y Seba</text>
+      <text x="500" y="65" text-anchor="middle" fill="#c3c9cf" font-size="13.5">deciden y aprueban desde el panel del CRM</text>
+      <path d="M500 78V112" stroke="#8a949e" stroke-width="1.5" marker-end="url(#fl)"/>
+      <!-- directores -->
+      <g font-size="15" font-weight="700" fill="#f4f6f7" text-anchor="middle">
+        <rect x="40" y="116" width="210" height="76" rx="14" fill="rgba(242,128,30,.14)" stroke="#F2801E" stroke-width="2"/>
+        <text x="145" y="148">Director de marketing</text>
+        <text x="145" y="172" font-size="12.5" font-weight="600" fill="#F2801E">EMPEZAMOS POR ESTE</text>
+        <rect x="280" y="116" width="200" height="76" rx="14" fill="#151c25" stroke="#1f2833" stroke-width="1.5"/>
+        <text x="380" y="148">Director de ventas</text>
+        <text x="380" y="172" font-size="12.5" font-weight="500" fill="#8a949e">segunda etapa</text>
+        <rect x="510" y="116" width="210" height="76" rx="14" fill="#151c25" stroke="#1f2833" stroke-width="1.5"/>
+        <text x="615" y="148">Director de onboarding</text>
+        <text x="615" y="172" font-size="12.5" font-weight="500" fill="#8a949e">tercera etapa</text>
+        <rect x="750" y="116" width="210" height="76" rx="14" fill="#151c25" stroke="#1f2833" stroke-width="1.5"/>
+        <text x="855" y="148">Director de administración</text>
+        <text x="855" y="172" font-size="12.5" font-weight="500" fill="#8a949e">tercera etapa</text>
+      </g>
+      <!-- conexiones al MCP -->
+      <g stroke="#8a949e" stroke-width="1.5" fill="none">
+        <path d="M145 192V236H500V262" marker-end="url(#fl)"/>
+        <path d="M380 192V236"/><path d="M615 192V236"/><path d="M855 192V236H500"/>
+      </g>
+      <!-- MCP del CRM -->
+      <rect x="300" y="266" width="400" height="74" rx="14" fill="rgba(34,211,238,.12)" stroke="#22D3EE" stroke-width="2"/>
+      <text x="500" y="297" text-anchor="middle" fill="#f4f6f7" font-size="17" font-weight="700">MCP del CRM</text>
+      <text x="500" y="320" text-anchor="middle" fill="#c3c9cf" font-size="13.5">una ruta nueva del CRM en Vercel, con clave propia</text>
+      <path d="M500 340V378" stroke="#8a949e" stroke-width="1.5" marker-end="url(#fl)"/>
+      <!-- CRM -->
+      <rect x="300" y="382" width="400" height="70" rx="14" fill="#151c25" stroke="#1f2833" stroke-width="1.5"/>
+      <text x="500" y="411" text-anchor="middle" fill="#f4f6f7" font-size="16" font-weight="700">CRM · base de datos</text>
+      <text x="500" y="433" text-anchor="middle" fill="#8a949e" font-size="13">leads, clientes, presupuestos, tableros, tareas</text>
+      <!-- otros MCP -->
+      <rect x="40" y="290" width="210" height="140" rx="14" fill="none" stroke="#1f2833" stroke-width="1.5" stroke-dasharray="5 5"/>
+      <text x="145" y="318" text-anchor="middle" fill="#f4f6f7" font-size="14.5" font-weight="700">Otros MCP</text>
+      <text x="145" y="344" text-anchor="middle" fill="#c3c9cf" font-size="13">Meta Ads (campañas SC |)</text>
+      <text x="145" y="366" text-anchor="middle" fill="#c3c9cf" font-size="13">Google Ads · Analytics</text>
+      <text x="145" y="388" text-anchor="middle" fill="#c3c9cf" font-size="13">Gmail · Drive · Calendar</text>
+      <text x="145" y="410" text-anchor="middle" fill="#8a949e" font-size="12">ya los usamos en nudge</text>
+      <path d="M145 236V286" stroke="#8a949e" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#fl)"/>
+      <rect x="750" y="290" width="210" height="140" rx="14" fill="none" stroke="#1f2833" stroke-width="1.5" stroke-dasharray="5 5"/>
+      <text x="855" y="318" text-anchor="middle" fill="#f4f6f7" font-size="14.5" font-weight="700">El MCP no puede</text>
+      <text x="855" y="344" text-anchor="middle" fill="#c3c9cf" font-size="13">borrar nada</text>
+      <text x="855" y="366" text-anchor="middle" fill="#c3c9cf" font-size="13">mandarle algo a un cliente</text>
+      <text x="855" y="388" text-anchor="middle" fill="#c3c9cf" font-size="13">tocar precios ni cobros</text>
+      <text x="855" y="410" text-anchor="middle" fill="#c3c9cf" font-size="13">ver contraseñas</text>
+    </svg>
+  </div>
+
+  <section class="seccion" aria-labelledby="t-semana">
+    <header><h2 id="t-semana">Cómo trabaja un director cada semana</h2><p>Cada director corre una vez por semana, por ejemplo los lunes a la mañana, y también cuando le pedimos algo puntual.</p></header>
+    <div class="flujo">
+      <div class="paso"><h3>Lee los datos reales</h3><p>Por los MCP consulta el CRM y las herramientas de su área: anuncios, analítica de la web, leads, consultas. Nada de números inventados ni planillas copiadas a mano.</p><span class="donde">MCP</span></div>
+      <div class="paso"><h3>Analiza y propone</h3><p>Compara contra la semana anterior y contra los objetivos que le fijamos, y arma el plan: qué seguir, qué cortar, qué probar.</p><span class="donde">Director</span></div>
+      <div class="paso"><h3>Deja todo en el CRM</h3><p>Escribe su informe y carga las tareas en su tablero del CRM ("Marketing", "Ventas"…), con responsable y fecha. Los borradores (textos, anuncios, mails) quedan adjuntos.</p><span class="donde">CRM · tableros</span></div>
+      <div class="paso"><h3>Nosotros aprobamos</h3><p>Entramos al panel, revisamos y aprobamos o corregimos. Lo que sale hacia un cliente o cuesta plata lo ejecutamos nosotros.</p><span class="donde">Panel del CRM</span></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-directores">
+    <header><h2 id="t-directores">Los cuatro directores</h2></header>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Director</th><th>Qué lee</th><th>Qué deja hecho</th><th>Qué no puede hacer</th></tr></thead>
+        <tbody>
+          <tr><td>Marketing<span class="primero">primero</span><small>web, SEO, contenido, pauta</small></td><td>Campañas "SC |" de Meta, analítica de la web, el estudio SEO, consultas que entraron y de dónde vinieron</td><td>Plan semanal en el tablero "Marketing", ideas y borradores de posts, notas del blog y anuncios, alertas si un anuncio se encarece</td><td>Publicar sin aprobación, cambiar presupuestos, tocar las campañas de MYC</td></tr>
+          <tr><td>Ventas<small>de consulta a cliente</small></td><td>Leads, consultas nuevas, actividad y presupuestos</td><td>Seguimientos vencidos, siguiente acción de cada lead, borradores de respuesta y de presupuesto</td><td>Mandar nada al cliente, fijar precios</td></tr>
+          <tr><td>Onboarding<small>de pago a proyecto en marcha</small></td><td>Clientes nuevos, servicios contratados, documentos</td><td>Checklist de alta, accesos que faltan, carpeta y tareas del proyecto</td><td>Pedirle accesos al cliente sin que lo veamos antes</td></tr>
+          <tr><td>Administración<small>cobros y renovaciones</small></td><td>Servicios con fecha y costo de renovación, presupuestos aprobados</td><td>Lista de vencimientos del mes, borradores de aviso de cobro</td><td>Cobrar, facturar, hacer descuentos</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-base">
+    <header><h2 id="t-base">El CRM ya tiene la base</h2><p>No hay que armar un sistema nuevo. Lo que ya construimos alcanza; solo falta el enchufe para que los directores lo usen.</p></header>
+    <div class="base">
+      <div><h3>Leads con etapas</h3><p>Responsable, valor, próxima acción y el historial de actividad de cada uno. Es todo lo que necesita el director de ventas.</p></div>
+      <div><h3>Clientes y servicios</h3><p>Cada servicio con fecha y costo de renovación, tareas y documentos. Es la base de onboarding y administración.</p></div>
+      <div><h3>Tableros y presupuestos</h3><p>Los tableros sirven para que cada director cargue su plan. El módulo de presupuestos recibe los borradores de ventas.</p></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-mcp">
+    <header><h2 id="t-mcp">Qué es el MCP del CRM</h2><p>MCP es el estándar con el que una IA se conecta a un sistema para leer y cargar datos sin pasar por la pantalla. Es lo mismo que en nudge usamos con Google Ads y Meta. El del CRM lo construimos nosotros, como una dirección más del CRM en Vercel.</p></header>
+    <div class="tabla-wrap">
+      <table>
+        <thead><tr><th>Puede</th><th>Ejemplos</th></tr></thead>
+        <tbody>
+          <tr><td>Leer</td><td>Leads y su actividad, consultas, clientes, servicios y renovaciones, presupuestos, tableros y tareas</td></tr>
+          <tr><td>Cargar</td><td>Notas de actividad en un lead, tareas y filas en los tableros, presupuestos en borrador</td></tr>
+          <tr><td>Cambiar</td><td>La etapa o la próxima acción de un lead (queda registrado quién lo hizo)</td></tr>
+          <tr><td>No puede</td><td>Borrar, mandar mails a clientes, ver contraseñas ni datos de usuarios, tocar el portal del cliente</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-reglas">
+    <header><h2 id="t-reglas">Reglas de juego</h2></header>
+    <ul class="reglas">
+      <li><b>Nada sale sin aprobación.</b> Los directores preparan; uno de nosotros dos revisa y ejecuta todo lo que llega a un cliente o mueve plata.</li>
+      <li><b>Todo queda en el CRM.</b> Informes, planes y tareas viven ahí, no en chats sueltos. Si un director lo hizo, se ve en el panel.</li>
+      <li><b>Cada acción queda firmada.</b> El CRM registra qué cargó cada director, igual que registra lo que cargamos nosotros.</li>
+      <li><b>Una clave por uso.</b> El acceso del MCP se puede cortar en cualquier momento desde Vercel sin tocar nada más.</li>
+    </ul>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-falta">
+    <header><h2 id="t-falta">Qué hace falta para arrancar</h2></header>
+    <div class="necesita">
+      <div class="item"><span class="n">1</span><div><p><b>OK de los dos</b></p><p>Que estemos de acuerdo con el esquema y con que los directores carguen datos en el CRM.</p></div><span class="quien q-socios">Socios</span></div>
+      <div class="item"><span class="n">2</span><div><p><b>Objetivos del director de marketing</b></p><p>Inversión mensual en pauta, qué servicio empujamos primero y cuántas consultas por mes buscamos. Sin esto el director no tiene contra qué medir.</p></div><span class="quien q-socios">Socios</span></div>
+      <div class="item"><span class="n">3</span><div><p><b>Construir el MCP del CRM</b></p><p>Primero solo lectura y tableros. Se prueba en local, después en Vercel con su clave propia.</p></div><span class="quien q-nudge">nudge</span></div>
+      <div class="item"><span class="n">4</span><div><p><b>Armar el director de marketing</b></p><p>Su rol, sus reglas y su rutina de los lunes. Lo corremos dos o tres semanas, lo ajustamos y recién ahí pasamos al de ventas.</p></div><span class="quien q-nudge">nudge</span></div>
+      <div class="item"><span class="n">5</span><div><p><b>Ventas, onboarding y administración</b></p><p>Con el mismo molde, uno por vez, ampliando lo que el MCP puede cargar a medida que lo necesiten.</p></div><span class="quien q-nudge">nudge</span></div>
+    </div>
+  </section>
+
+  <footer>Plan armado el 11/10/2026. Todavía no está construido: esto es lo que proponemos hacer.</footer>
+</div>
+</body>
+</html>
