@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Servidores de Studio Complex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: cuenta de DigitalOcean arriba como raíz; de ella cuelgan dos grupos (Plesk / Docker) con sus servidores; cada servidor lista sus dominios como ramas. Abajo, lo que vence y lo que se puede limpiar. */
+:root{
+  --bg:#f6f4f1; --surface:#ffffff; --fg:#17140f; --muted:#6b645a; --line:#e2ddd5;
+  --accent:#ef6a12; --accent-soft:#fde8d8;
+  --ok:#1f7a4c; --ok-soft:#dcf1e5; --warn:#a85d00; --warn-soft:#fdeccc; --bad:#b4261c; --bad-soft:#fadcd8; --info:#3b5b8c; --info-soft:#e1e9f5;
+  --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#14120f; --surface:#1d1a16; --fg:#f2ede6; --muted:#a39a8e; --line:#332e27;
+  --accent:#ff8a3d; --accent-soft:#3a2414;
+  --ok:#5fcf93; --ok-soft:#173326; --warn:#f2b155; --warn-soft:#3a2a12; --bad:#ff7d72; --bad-soft:#3d1916; --info:#93b3e6; --info-soft:#1b2638;
+  color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#14120f; --surface:#1d1a16; --fg:#f2ede6; --muted:#a39a8e; --line:#332e27;
+  --accent:#ff8a3d; --accent-soft:#3a2414;
+  --ok:#5fcf93; --ok-soft:#173326; --warn:#f2b155; --warn-soft:#3a2a12; --bad:#ff7d72; --bad-soft:#3d1916; --info:#93b3e6; --info-soft:#1b2638;
+  color-scheme:dark; }
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:32px 56px}
+.wrap{max-width:1120px; margin:0 auto; display:flex; flex-direction:column; gap:36px}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0}
+.mono{font-family:var(--mono); font-size:.86em}
+.eyebrow{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:600}
+
+/* Cabecera */
+header{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:20px}
+header h1{font-size:clamp(30px, 5vw, 46px); font-weight:800; letter-spacing:-.02em; line-height:1.05}
+header h1 span{color:var(--accent)}
+header p{margin:8px 0 0; color:var(--muted); max-width:58ch}
+.resumen{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.resumen div{background:var(--surface); padding:14px 16px}
+.resumen b{display:block; font-family:var(--display); font-size:26px; font-weight:800; font-variant-numeric:tabular-nums; line-height:1.1}
+.resumen small{color:var(--muted); font-size:12.5px}
+.resumen .alerta b{color:var(--bad)}
+
+/* Árbol */
+.raiz{display:flex; justify-content:center}
+.cuenta{display:inline-flex; align-items:center; gap:12px; background:var(--fg); color:var(--bg); padding:10px 18px; border-radius:999px; font-weight:600}
+.cuenta .mono{opacity:.75}
+.grupos{display:grid; grid-template-columns:1fr 1fr; gap:22px; position:relative}
+.grupo{display:flex; flex-direction:column; gap:14px; position:relative; padding-top:26px}
+.grupo::before{content:""; position:absolute; top:-18px; left:50%; width:1.5px; height:30px; background:var(--line)}
+.grupos::before{content:""; position:absolute; top:-18px; left:25%; right:25%; height:1.5px; background:var(--line)}
+.grupo-tit{display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap}
+.grupo-tit h2{font-size:20px; font-weight:800}
+.grupo-tit span{color:var(--muted); font-size:13px}
+
+.vps{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px; display:flex; flex-direction:column; gap:14px; min-width:0}
+.vps-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap}
+.vps h3{font-family:var(--mono); font-size:17px; font-weight:500}
+.vps .rol{color:var(--muted); font-size:13.5px; margin-top:2px}
+.ficha{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12.5px; color:var(--muted)}
+.ficha b{color:var(--fg); font-weight:500}
+.medidores{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.medidor{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--muted)}
+.medidor .barra{height:6px; border-radius:3px; background:var(--line); overflow:hidden}
+.medidor .barra i{display:block; height:100%; background:var(--accent)}
+.medidor span{display:flex; justify-content:space-between; font-variant-numeric:tabular-nums}
+
+.dominios{list-style:none; margin:0; padding:0 0 0 14px; border-left:1.5px solid var(--line); display:flex; flex-direction:column; gap:8px}
+.dominios li{position:relative; display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; min-width:0}
+.dominios li::before{content:""; position:absolute; left:-14px; top:50%; width:10px; height:1.5px; background:var(--line)}
+.dominios .d{font-family:var(--mono); font-size:13px; overflow-wrap:anywhere; min-width:0}
+.dominios .d.prod{font-weight:500}
+.dominios .nota{font-size:12px; color:var(--muted)}
+.pill{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; padding:2px 8px; border-radius:999px; white-space:nowrap}
+.pill::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor}
+.ok{color:var(--ok); background:var(--ok-soft)}
+.redir{color:var(--info); background:var(--info-soft)}
+.bad{color:var(--bad); background:var(--bad-soft)}
+.warn{color:var(--warn); background:var(--warn-soft)}
+.tag{font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:6px; border:1px solid var(--line); color:var(--muted)}
+.tag.prod{border-color:var(--accent); color:var(--accent)}
+.licencia{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; font-size:13px; padding:10px 12px; border-radius:8px; background:var(--warn-soft); color:var(--warn)}
+.licencia.urgente{background:var(--bad-soft); color:var(--bad)}
+.licencia b{font-variant-numeric:tabular-nums}
+.servicios{display:flex; flex-wrap:wrap; gap:6px}
+.servicios span{font-family:var(--mono); font-size:11.5px; padding:2px 7px; border-radius:5px; background:var(--bg); border:1px solid var(--line)}
+
+/* Abajo */
+.acciones{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+.bloque{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:12px; min-width:0}
+.bloque h2{font-size:19px; font-weight:800}
+.bloque ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:8px}
+.bloque p{margin:0; color:var(--muted); font-size:13.5px}
+.linea{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start}
+.fecha{font-family:var(--display); font-weight:800; font-size:22px; line-height:1; font-variant-numeric:tabular-nums; color:var(--bad); min-width:62px}
+.fecha.mas{color:var(--warn)}
+.fecha small{display:block; font-family:var(--body); font-size:11px; font-weight:600; color:var(--muted); margin-top:4px}
+footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); padding-top:14px}
+
+@media (max-width: 820px){
+  .grupos,.acciones{grid-template-columns:1fr}
+  .grupos::before,.grupo::before{display:none}
+  .grupo{padding-top:0}
+  .resumen{grid-template-columns:repeat(2, minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Inventario · 16/11/2026</div>
+      <h1>Servidores de <span>Studio Complex</span></h1>
+      <p>Los 4 VPS activos en DigitalOcean (proyecto first-project) y los dominios que tiene cada uno. Datos leídos en cada servidor por SSH y cada dominio probado en vivo.</p>
+    </div>
+  </header>
+
+  <section class="resumen" aria-label="Resumen">
+    <div><b>4</b><small>VPS activos</small></div>
+    <div><b>11</b><small>dominios y subdominios</small></div>
+    <div><b>USD 79–86</b><small>por mes, según backups</small></div>
+    <div class="alerta"><b>2</b><small>licencias de Plesk de prueba por vencer</small></div>
+  </section>
+
+  <section aria-label="Esquema de servidores">
+    <div class="raiz"><div class="cuenta">DigitalOcean <span class="mono">first-project</span></div></div>
+    <div style="height:36px"></div>
+    <div class="grupos">
+
+      <!-- PLESK -->
+      <div class="grupo">
+        <div class="grupo-tit"><h2>Con Plesk</h2><span>webs de clientes, un cliente por suscripción</span></div>
+
+        <article class="vps">
+          <div class="vps-top">
+            <div><h3>sc-prod-01</h3><div class="rol">Producción de clientes</div></div>
+            <span class="tag prod">Producción</span>
+          </div>
+          <div class="ficha"><span>IP <b class="mono">159.65.245.67</b></span><span>NYC3</span><span><b>1 vCPU · 2 GB · 50 GB</b></span><span>USD 14,40/mes</span></div>
+          <div class="medidores">
+            <div class="medidor"><span>Disco<em>24%</em></span><div class="barra"><i style="width:24%"></i></div></div>
+            <div class="medidor"><span>Memoria<em>39%</em></span><div class="barra"><i style="width:39%"></i></div></div>
+          </div>
+          <ul class="dominios">
+            <li><span class="d prod">vpositivo.com.ar</span><span class="pill ok">En línea</span><span class="nota">con www · cliente VPositivo</span></li>
+            <li><span class="d">centenario.studiocomplex.com.ar</span><span class="pill redir">Redirige</span><span class="nota">dev viejo → centenarioautos.com</span></li>
+          </ul>
+          <div class="licencia"><span>Licencia de prueba · 2 de 3 dominios usados</span><b>Vence 5/12</b></div>
+        </article>
+
+        <article class="vps">
+          <div class="vps-top">
+            <div><h3>plesk-studiocomplex</h3><div class="rol">Desarrollo y pruebas</div></div>
+            <span class="tag">Desarrollo</span>
+          </div>
+          <div class="ficha"><span>IP <b class="mono">157.230.175.211</b></span><span>SFO2</span><span><b>2 GB · 50 GB</b></span><span>~USD 12–14,40/mes</span></div>
+          <div class="medidores">
+            <div class="medidor"><span>Disco<em>20%</em></span><div class="barra"><i style="width:20%"></i></div></div>
+            <div class="medidor"><span>Memoria<em>33%</em></span><div class="barra"><i style="width:33%"></i></div></div>
+          </div>
+          <ul class="dominios">
+            <li><span class="d prod">dolaronline.studiocomplex.com.ar</span><span class="pill ok">En línea</span><span class="nota">Dólar Online</span></li>
+            <li><span class="d">conversor.dolaronline.studiocomplex.com.ar</span><span class="pill ok">En línea</span></li>
+            <li><span class="d">notas.dolaronline.studiocomplex.com.ar</span><span class="pill redir">Redirige</span><span class="nota">→ dolaronline</span></li>
+            <li><span class="d">vpositivo.studiocomplex.com.ar</span><span class="pill bad">Suspendido</span><span class="nota">dev viejo, da 503</span></li>
+          </ul>
+          <div class="licencia urgente"><span>Licencia de prueba · 2 de 3 dominios usados</span><b>Vence 26/11</b></div>
+        </article>
+      </div>
+
+      <!-- DOCKER -->
+      <div class="grupo">
+        <div class="grupo-tit"><h2>Con Docker</h2><span>un servidor dedicado por cliente</span></div>
+
+        <article class="vps">
+          <div class="vps-top">
+            <div><h3>sc-centenario-01</h3><div class="rol">Centenario Automotores: web y asistente</div></div>
+            <span class="tag prod">Producción</span>
+          </div>
+          <div class="ficha"><span>IP <b class="mono">174.138.65.6</b></span><span>NYC3</span><span><b>2 vCPU · 4 GB · 80 GB</b></span><span>~USD 24–28,80/mes</span></div>
+          <div class="medidores">
+            <div class="medidor"><span>Disco<em>17%</em></span><div class="barra"><i style="width:17%"></i></div></div>
+            <div class="medidor"><span>Memoria<em>58%</em></span><div class="barra"><i style="width:58%"></i></div></div>
+          </div>
+          <ul class="dominios">
+            <li><span class="d prod">centenarioautos.com</span><span class="pill ok">En línea</span><span class="nota">con www · publicada el 15/11</span></li>
+          </ul>
+          <div class="servicios" aria-label="Servicios"><span>WordPress</span><span>MariaDB</span><span>Chatwoot</span><span>n8n</span><span>Postgres</span><span>Redis</span><span>Caddy</span></div>
+          <p class="nota" style="margin:0;font-size:12.5px;color:var(--muted)">Chatwoot y n8n corren sin dominio propio.</p>
+        </article>
+
+        <article class="vps">
+          <div class="vps-top">
+            <div><h3>sc-reinale-01</h3><div class="rol">Reinale Pets: asistente de IA</div></div>
+            <span class="tag prod">Producción</span>
+          </div>
+          <div class="ficha"><span>IP <b class="mono">159.65.167.33</b></span><span>NYC3</span><span><b>2 vCPU · 4 GB · 80 GB</b></span><span>USD 28,80/mes</span></div>
+          <div class="medidores">
+            <div class="medidor"><span>Disco<em>18%</em></span><div class="barra"><i style="width:18%"></i></div></div>
+            <div class="medidor"><span>Memoria<em>52%</em></span><div class="barra"><i style="width:52%"></i></div></div>
+          </div>
+          <ul class="dominios">
+            <li><span class="d prod">atencion-reinale.studiocomplex.com.ar</span><span class="pill ok">En línea</span><span class="nota">Chatwoot + panel</span></li>
+            <li><span class="d prod">auto-reinale.studiocomplex.com.ar</span><span class="pill ok">En línea</span><span class="nota">n8n</span></li>
+          </ul>
+          <div class="servicios" aria-label="Servicios"><span>Chatwoot</span><span>n8n</span><span>Panel</span><span>Postgres</span><span>Redis</span><span>Caddy</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="acciones">
+    <div class="bloque">
+      <h2>Lo que vence</h2>
+      <div class="linea"><div class="fecha">26/11<small>en 10 días</small></div><div><b>Licencia de Plesk del servidor de desarrollo.</b><p>Ahí está Dólar Online. Hay que comprar la licencia o mover lo que hay adentro.</p></div></div>
+      <div class="linea"><div class="fecha mas">5/12<small>en 19 días</small></div><div><b>Licencia de Plesk de producción.</b><p>Ahí está VPositivo, un cliente real. Es la más delicada.</p></div></div>
+    </div>
+    <div class="bloque">
+      <h2>Se puede limpiar, con OK</h2>
+      <ul>
+        <li><b>centenario.studiocomplex.com.ar</b> en sc-prod-01. Ya no se usa: solo redirige a la web nueva y ocupa uno de los 3 lugares de la licencia.</li>
+        <li><b>vpositivo.studiocomplex.com.ar</b> en el servidor de desarrollo. Está suspendido desde que VPositivo pasó a producción.</li>
+      </ul>
+      <p>Hasta ahora no se tocó nada: solo se leyó.</p>
+    </div>
+  </section>
+
+  <footer>Leído el 16/11/2026 en cada servidor (Plesk, Docker y Caddy) y con una prueba HTTPS de cada dominio. Los costos salen de la lista de precios de DigitalOcean y varían según tengan backups o no.</footer>
+</div>
+</body>
+</html>
