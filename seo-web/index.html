@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>SEO de studiocomplex.com.ar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --fondo: #0a0e13; --sup: #10161d; --sup-2: #151c25; --borde: #1f2833;
+    --texto: #c3c9cf; --texto-2: #8a949e; --titulo: #f4f6f7;
+    --naranja: #F2801E; --cian: #22D3EE; --verde: #34d399; --ambar: #fbbf24; --rojo: #f87171;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.6 Figtree, system-ui, -apple-system, "Segoe UI", sans-serif; padding-inline: 18px; -webkit-font-smoothing: antialiased; }
+  .envoltura { max-width: 1000px; margin: 0 auto; padding-block: 44px 90px; display: grid; gap: 56px; }
+  h1, h2, h3 { color: var(--titulo); margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  p { margin: 0; }
+  b, strong { color: var(--titulo); }
+  a { color: var(--cian); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .cabeza { display: grid; gap: 16px; position: relative; }
+  .cabeza::before { content: ""; position: absolute; inset: -60px -40px auto; height: 300px; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 60% at 15% 30%, rgba(242,128,30,.2), transparent 70%), radial-gradient(40% 60% at 85% 20%, rgba(34,211,238,.14), transparent 70%); }
+  .etiqueta { font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--cian); }
+  h1 { font-size: clamp(2rem, 5.6vw, 3.2rem); line-height: 1.05; font-weight: 800; }
+  h1 span { background: linear-gradient(100deg, var(--naranja) 0 42%, var(--cian) 62% 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bajada { font-size: 18px; max-width: 68ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta span { font: 500 12.5px/1 var(--mono); padding: 8px 11px; border-radius: 8px; background: var(--sup); box-shadow: inset 0 0 0 1px var(--borde); color: var(--texto-2); }
+
+  .alerta { border-radius: 18px; padding: 22px 24px; display: grid; gap: 8px; background: color-mix(in oklab, var(--ambar) 8%, var(--sup)); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ambar) 40%, transparent); }
+  .alerta h2 { font-size: 20px; color: var(--ambar); }
+  .alerta p { max-width: 75ch; }
+
+  .seccion { display: grid; gap: 22px; }
+  .seccion > header { display: grid; gap: 6px; }
+  h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.1; }
+  .seccion > header p { color: var(--texto-2); max-width: 68ch; }
+
+  .kpis { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .kpi { background: var(--sup); border-radius: 16px; padding: 18px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 4px; }
+  .kpi small { font-size: 13px; color: var(--texto-2); }
+  .kpi b { font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .kpi em { font-style: normal; font-size: 13px; color: var(--texto-2); }
+
+  .tabla-wrap { overflow-x: auto; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--borde); background: var(--sup); }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 720px; }
+  th, td { padding: 12px 14px; text-align: right; border-bottom: 1px solid var(--borde); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; white-space: normal; }
+  th { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-2); background: var(--sup-2); }
+  tr:last-child td { border-bottom: 0; }
+  td small { display: block; color: var(--texto-2); font-size: 12.5px; }
+  .pill { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .pill.on { color: var(--verde); background: rgba(52,211,153,.13); }
+  .pill.off { color: var(--texto-2); background: var(--sup-2); }
+  .bien { color: var(--verde); } .mal { color: var(--rojo); }
+
+  .grafico { background: var(--sup); border-radius: 16px; padding: 20px; box-shadow: inset 0 0 0 1px var(--borde); display: grid; gap: 12px; }
+  .grafico svg { width: 100%; height: auto; display: block; }
+  .grafico .eje { stroke: var(--borde); }
+  .grafico .barra { fill: var(--naranja); }
+  .grafico .barra.ult { fill: var(--rojo); }
+  .grafico text { fill: var(--texto-2); font: 12px Figtree, sans-serif; }
+  .grafico .valor { fill: var(--titulo); font-weight: 700; font-size: 13px; }
+  .grafico p { font-size: 14.5px; }
+
+  .hallazgos { display: grid; gap: 12px; }
+  .hallazgo { display: grid; grid-template-columns: 34px 1fr; gap: 14px; background: var(--sup); border-radius: 14px; padding: 16px 18px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .hallazgo i { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 800; }
+  .hallazgo.v i { background: rgba(52,211,153,.14); color: var(--verde); }
+  .hallazgo.a i { background: rgba(251,191,36,.14); color: var(--ambar); }
+  .hallazgo.r i { background: rgba(248,113,113,.14); color: var(--rojo); }
+  .hallazgo p + p { margin-top: 4px; color: var(--texto-2); font-size: 15px; }
+
+  .plan { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: p; }
+  .plan li { counter-increment: p; display: grid; grid-template-columns: 42px 1fr; gap: 14px; background: var(--sup); border-radius: 14px; padding: 18px; box-shadow: inset 0 0 0 1px var(--borde); }
+  .plan li::before { content: counter(p); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; background: var(--naranja); color: #1a0d05; }
+  .plan h3 { font-size: 18px; margin-bottom: 4px; }
+  .plan p { font-size: 15.5px; }
+  .plan .quien { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px; color: var(--cian); background: rgba(34,211,238,.11); }
+
+  .preguntas { display: grid; gap: 10px; }
+  .preguntas div { background: var(--sup); border-radius: 14px; padding: 16px 18px; box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--naranja) 35%, transparent); }
+  .preguntas b { display: block; margin-bottom: 4px; }
+  .preguntas p { font-size: 15px; color: var(--texto-2); }
+
+  footer { font-size: 13.5px; color: var(--texto-2); border-top: 1px solid var(--borde); padding-top: 20px; }
+  .hallazgo { grid-template-columns: auto 1fr; }
+  .hallazgo i { width: auto; min-width: 34px; padding: 0 7px; font-size: 14px; white-space: nowrap; }
+  .seccion > p { max-width: 75ch; }
+  @media (max-width: 520px) { .envoltura { gap: 44px; } .kpi b { font-size: 22px; } }
+  td, th { white-space: normal; }
+  @media (max-width: 520px) { th, td { padding: 10px 10px; font-size: 13.5px; } }
+</style>
+
+</head>
+<body>
+<div class="envoltura">
+
+  <header class="cabeza">
+    <span class="etiqueta">Diagnóstico · SEO · 23 de noviembre de 2026</span>
+    <h1>Studio Complex en Google: <span>cómo viene la web</span>.</h1>
+    <p class="bajada">Saqué los datos de Search Console de studiocomplex.com.ar y revisé una por una las 42 páginas del sitemap. Resumido: en casi dos meses Google mandó <b>11 visitas</b>, y las páginas de los servicios que vendemos prácticamente no aparecen.</p>
+    <div class="meta"><span>Search Console · 30/9 al 21/11/2026</span><span>42 páginas revisadas</span><span>Medición en celular · 23/11</span></div>
+  </header>
+
+  <div class="alerta">
+    <h2>Lo que más pesa</h2>
+    <p>Dos de cada tres veces que Google mostró la web, fue por <b>una sola nota del blog</b>, y la mostró en la página 7 a gente de España y México. Esa nota no trajo ni un clic. Mientras tanto, «desarrollo web a medida», que es lo que vendemos, nos encuentra en la <b>posición 58 a 78</b>.</p>
+  </div>
+
+  <section class="seccion" aria-labelledby="t-numeros">
+    <header>
+      <h2 id="t-numeros">Los números de Search Console</h2>
+      <p>Desde fines de septiembre, cuando la web nueva pasó al dominio, hasta el 21/11. Es un sitio nuevo y es normal que tarde en subir. Pero con estos datos ya se ve qué está mal armado.</p>
+    </header>
+    <div class="kpis">
+      <div class="kpi"><small>Clics desde Google</small><b class="mal">11</b><em>en casi dos meses</em></div>
+      <div class="kpi"><small>Veces que apareció</small><b>1.650</b><em>impresiones</em></div>
+      <div class="kpi"><small>Posición media</small><b class="mal">55,5</b><em>página 6 de Google</em></div>
+      <div class="kpi"><small>Tasa de clics</small><b>0,7 %</b><em>de cada 100 que la ven, menos de 1 entra</em></div>
+      <div class="kpi"><small>Búsquedas del nombre</small><b>10</b><em>«studio complex» y variantes</em></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-1">
+    <header>
+      <h2 id="t-1">1. Google nos muestra a gente que no nos va a contratar</h2>
+      <p>Las 11 visitas son de Argentina. Pero la mayoría de las impresiones vienen de España y México, en posiciones donde nadie llega a ver el resultado.</p>
+    </header>
+    <div class="tabla-wrap">
+      <table style="min-width:0">
+        <thead><tr><th>País</th><th>Impresiones</th><th>Clics</th><th>Posición</th></tr></thead>
+        <tbody>
+          <tr><td>España</td><td>581</td><td class="mal">0</td><td>73,9</td></tr>
+          <tr><td>México</td><td>484</td><td class="mal">0</td><td>58,5</td></tr>
+          <tr><td>Argentina</td><td>391</td><td class="bien">11</td><td>23,6</td></tr>
+          <tr><td>Resto (EE. UU., Colombia, India, otros)</td><td>~190</td><td>0</td><td>44 a 84</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>El motivo es la nota <b>«¿Cuánto tarda una web en posicionar en Google?»</b>. Sola junta <b>1.098 impresiones</b> en la posición 68 y <b>0 clics</b>. Las búsquedas que la traen son de gente que quiere aprender SEO, no contratar una agencia:</p>
+    <div class="tabla-wrap">
+      <table style="min-width:0">
+        <thead><tr><th>Búsqueda</th><th>Impresiones</th><th>Posición</th></tr></thead>
+        <tbody>
+          <tr><td>cuanto tarda en posicionarse una web</td><td>295</td><td>66,5</td></tr>
+          <tr><td>cuanto tarda una web en posicionarse</td><td>249</td><td>62,9</td></tr>
+          <tr><td>cuanto tiempo tarda google en posicionar una web</td><td>232</td><td>71,1</td></tr>
+          <tr><td>cuanto tiempo tarda en posicionarse una web</td><td>231</td><td>73,2</td></tr>
+          <tr><td>Otras 9 parecidas («cuánto tarda google en indexar», etc.)</td><td>41</td><td>63 a 93</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Arriba de todo, para esa búsqueda, salen blogs de agencias de marketing (kreitzmarket.com, creatiburon.com, digitalcontent.pro). Aunque la nota subiera, atrae a gente que quiere aprender, muchas veces de otros países. No nos trae clientes.</p>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-2">
+    <header>
+      <h2 id="t-2">2. Las páginas de servicio no aparecen</h2>
+      <p>Son las páginas que tienen que traer consultas. En casi dos meses, sacando la de desarrollo web, <b>las otras nueve juntas aparecieron 47 veces</b>. La de SEO técnico, que es el servicio que vendemos para esto, apareció 5 veces.</p>
+    </header>
+    <div class="tabla-wrap">
+      <table style="min-width:0">
+        <thead><tr><th>Página y su H1</th><th>Impresiones</th><th>Posición</th></tr></thead>
+        <tbody>
+          <tr><td>Desarrollo web<small>«Tu sitio, hecho para vender.»</small></td><td>169</td><td class="mal">69,8</td></tr>
+          <tr><td>Tiendanube<small>«Tu tienda en Tiendanube, armada a medida.»</small></td><td>15</td><td>14,6</td></tr>
+          <tr><td>Cierre de ventas<small>«Ninguna venta se enfría por olvido.»</small></td><td>7</td><td>14,1</td></tr>
+          <tr><td>Shopify<small>«Tu tienda en Shopify, lista para crecer.»</small></td><td>7</td><td>15,1</td></tr>
+          <tr><td>WooCommerce<small>«Tu tienda en WooCommerce, dentro de tu WordPress.»</small></td><td>6</td><td>7,5</td></tr>
+          <tr><td>Campañas de Ads<small>«Anuncios que traen clientes.»</small></td><td>5</td><td>2,2</td></tr>
+          <tr><td>SEO técnico<small>«Que te encuentren primero a vos.»</small></td><td>5</td><td class="mal">29,0</td></tr>
+          <tr><td>Automatización de leads<small>«Cada consulta, en su lugar.»</small></td><td>1</td><td>1,0</td></tr>
+          <tr><td>Tiendas online<small>«Una tienda que vende mientras dormís.»</small></td><td>1</td><td>19,0</td></tr>
+          <tr><td>Automatizaciones con IA<small>«Lo repetitivo, que se haga solo.» · publicada el 19/11</small></td><td>0</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Los H1 son frases de marca. Salvo los de las tiendas, que nombran la plataforma, ninguno dice lo que la gente escribe en Google: «diseño web», «desarrollo web a medida», «agencia de SEO», «Google Ads». Esto ya se marcó en la revisión del <b>28/9</b>: la palabra clave no estaba en ningún título de la página. Se dejó como «no urgente». Dos meses después, es lo primero que hay que corregir.</p>
+    <p>Las posiciones buenas de la tabla (Ads 2,2, automatización 1,0) son de 1 a 5 apariciones: búsquedas sueltas, no un lugar ganado. La única página que aparece seguido en la primera página es la de Berazategui: 44 veces en la posición 6,8. Pero entra por el Perfil de Google (la dirección que muestra lleva <code>utm_source=gbp</code>), no por el texto de la página.</p>
+    <div class="tabla-wrap">
+      <table style="min-width:0">
+        <thead><tr><th>Lo que buscan para «desarrollo web»</th><th>Impresiones</th><th>Posición</th></tr></thead>
+        <tbody>
+          <tr><td>desarrollo aplicaciones web a medida</td><td>81</td><td class="mal">78,3</td></tr>
+          <tr><td>desarrollo de aplicaciones web a medida</td><td>34</td><td class="mal">78,0</td></tr>
+          <tr><td>desarrollo web a medida</td><td>27</td><td class="mal">58,1</td></tr>
+          <tr><td>aplicaciones web a medida</td><td>5</td><td class="mal">67,8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Además, ningún título dice <b>Argentina</b> ni <b>Buenos Aires</b>. El título del inicio es «Partner Digital para Empresas de Latinoamérica», y «partner digital» no es algo que la gente escriba en Google. Sin una señal de dónde estamos, Google nos muestra en cualquier país, como se ve en el punto 1.</p>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-3">
+    <header>
+      <h2 id="t-3">3. La página de Berazategui es una copia</h2>
+      <p>Medí cuánto texto comparten las páginas. Para eso conté las frases de cinco palabras que se repiten igual en las dos.</p>
+    </header>
+    <div class="hallazgos">
+      <div class="hallazgo r"><i>71 %</i><div><p><b>Berazategui y Desarrollo web comparten el 71 % del texto.</b></p><p>Es la página de servicio con otro H1 y el nombre de la zona. Google suele tratar como duplicadas las páginas por ciudad armadas así. Puede quedarse con una sola, o bajar las dos. Hoy anda bien porque la empuja el Perfil de Google, pero se apoya en un texto copiado.</p></div></div>
+      <div class="hallazgo a"><i>~27 %</i><div><p><b>Tiendanube, Shopify y WooCommerce comparten entre el 25 y el 29 % del texto entre sí.</b></p><p>Con «Tiendas online» arriba, son cuatro páginas peleando por búsquedas parecidas. Ninguna supera las 15 impresiones.</p></div></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-4">
+    <header>
+      <h2 id="t-4">4. Casi nadie nos enlaza, y los que nos enlazan son clientes</h2>
+      <p>Search Console cuenta 219 enlaces externos. Todos apuntan al inicio, y casi todos salen del pie de página de webs de clientes, que repiten el enlace en cada página.</p>
+    </header>
+    <div class="tabla-wrap">
+      <table style="min-width:0">
+        <thead><tr><th>Sitio</th><th>Enlaces</th></tr></thead>
+        <tbody>
+          <tr><td>vpositivo.com.ar</td><td>64</td></tr>
+          <tr><td>reinalepets.com</td><td>52</td></tr>
+          <tr><td>valoraprop.com.ar</td><td>51</td></tr>
+          <tr><td>inmobiliariajuframa.com.ar</td><td>26</td></tr>
+          <tr><td>centenarioautos.com</td><td>23</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Ninguna página de servicio ni ninguna nota tiene un enlace de afuera. Los textos de los enlaces son casi todos la marca: «studio complex», «sc», «diseño y desarrollo web cs» (la marca vieja).</p>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-5">
+    <header>
+      <h2 id="t-5">5. El inicio es pesado y el código está sucio</h2>
+      <p>Medido en un iPhone emulado, sin limitar la conexión. Con el 4G de un celular real, los tiempos son bastante peores.</p>
+    </header>
+    <div class="kpis">
+      <div class="kpi"><small>Peso del inicio</small><b class="mal">2,27 MB</b><em>1,5 MB son imágenes</em></div>
+      <div class="kpi"><small>Archivos que carga</small><b>87</b><em>pedidos al servidor</em></div>
+      <div class="kpi"><small>Carga del contenido principal</small><b class="mal">3,1 s</b><em>LCP; Google pide menos de 2,5 s</em></div>
+      <div class="kpi"><small>Scripts que frenan la carga</small><b>20 a 24</b><em>sin defer, en cada página</em></div>
+    </div>
+    <div class="hallazgos">
+      <div class="hallazgo a"><i>!</i><div><p><b>36 de las 75 imágenes del inicio no tienen texto alternativo (alt).</b></p><p>Google no sabe qué muestran. En las notas del blog faltan en 6 de cada 19.</p></div></div>
+      <div class="hallazgo a"><i>!</i><div><p><b>Entre 48 y 85 comentarios internos en el código de cada página.</b></p><p>Notas como «Chat flotante: oculto a pedido…» o «las genera tools/seo-tags.py». Suman peso y quedan a la vista de cualquiera que mire el código.</p></div></div>
+      <div class="hallazgo a"><i>!</i><div><p><b>Están en la revisión del 15/11 y siguen igual.</b></p><p>Esa revisión ya decía que la home pesaba unos 3 MB y tenía 20 scripts sin defer. No se tocó.</p></div></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-6">
+    <header>
+      <h2 id="t-6">6. Detalles de las notas del blog</h2>
+    </header>
+    <div class="hallazgos">
+      <div class="hallazgo a"><i>!</i><div><p><b>11 de las 13 notas tienen títulos de más de 75 caracteres.</b></p><p>Google corta cerca de los 60. Por ejemplo, «Google Ads en un rubro con restricciones: cómo evitar que te suspendan la cuenta | Blog de Studio Complex» tiene 105.</p></div></div>
+      <div class="hallazgo a"><i>!</i><div><p><b>Las notas que le hablan a alguien que va a comprar casi no aparecen.</b></p><p>«¿Cuánto cuesta una tienda online?» está en la posición 17,7 con 11 impresiones, y «Tiendanube, Shopify o WooCommerce» en la 34,9 con 16. La que junta impresiones es la del punto 1, que no vende.</p></div></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-bien">
+    <header>
+      <h2 id="t-bien">Lo que sí está bien</h2>
+      <p>Para que quede claro dónde no está el problema.</p>
+    </header>
+    <div class="hallazgos">
+      <div class="hallazgo v"><i>✓</i><div><p><b>Google tiene indexadas 41 páginas, con el sitemap enviado.</b></p><p>Las «sin indexar» de Search Console son direcciones de la web vieja de WordPress (/contacto/, /blog/, /diseno-y-desarrollo-web/…). Hoy todas redirigen bien con 301; Google todavía no volvió a pasar. Los 404 y 403 son restos de WordPress (wp-content, porto-child) y no afectan.</p></div></div>
+      <div class="hallazgo v"><i>✓</i><div><p><b>Canónicas, HTTPS y migas de pan en todas las páginas, y preguntas frecuentes con datos estructurados en servicios y casos.</b></p><p>La parte técnica de base está. Lo que falla es a qué búsquedas apunta cada página y qué la respalda.</p></div></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-orden">
+    <header>
+      <h2 id="t-orden">Por dónde empezar</h2>
+      <p>En orden de impacto. Después hay que medir de nuevo en Search Console a las 2 y a las 4 semanas.</p>
+    </header>
+    <ol class="plan">
+      <li><div><h3>Títulos y H1 con lo que la gente busca</h3><p>Las 10 páginas de servicio, con la búsqueda real y «Argentina» o «Buenos Aires». Por ejemplo, «Desarrollo web a medida en Buenos Aires» en lugar de «Tu sitio, hecho para vender». La frase de marca puede quedar como bajada. El título del inicio, igual.</p></div></li>
+      <li><div><h3>Reescribir Berazategui</h3><p>Con texto propio de la zona: clientes de zona sur, cómo atendemos, ejemplos locales. O integrarla a desarrollo web. Así como está, es una copia.</p></div></li>
+      <li><div><h3>Unificar las páginas de tiendas</h3><p>Decidir qué página pelea cada búsqueda («tienda online a medida», «tiendanube a medida», etc.) y que las demás la enlacen, en lugar de cuatro textos parecidos.</p></div></li>
+      <li><div><h3>Notas para quien compra, desde Argentina</h3><p>Reforzar las que ya apuntan a quien compra (cuánto cuesta una tienda, qué plataforma elegir) con «Argentina», precios en pesos y un enlace a su servicio. Dejar de sumar notas generales que traen lectores de otros países.</p></div></li>
+      <li><div><h3>Enlaces a las páginas de servicio</h3><p>Pedir a los clientes que el enlace del pie vaya con un texto útil, como «diseño web a medida», y, cuando se pueda, a la página del servicio que se les hizo. Sumar directorios de agencias de Argentina.</p></div></li>
+      <li><div><h3>Alivianar el inicio y limpiar el código</h3><p>Comprimir las imágenes (1,5 MB), cargar los scripts con defer, poner alt a todas las imágenes y sacar los comentarios internos.</p></div></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Datos: Search Console de studiocomplex.com.ar (propiedad de dominio), del 30/9 al 21/11/2026, con los informes de rendimiento, indexación y enlaces. Revisión de las 42 direcciones del sitemap y de las direcciones viejas que figuran en Search Console, el 23/11/2026. Peso y tiempos medidos en un iPhone 13 emulado. Resultados de Google Argentina consultados el 23/11.</p>
+  </footer>
+
+</div>
+</body>
+</html>
