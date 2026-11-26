@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: cuenta de DigitalOcean arriba como raíz; de ella cuelgan dos grupos (Plesk / Docker) con sus servidores; cada servidor lista sus dominios como ramas. Abajo, lo que vence y lo que se puede limpiar. */
+/* Layout: cuenta de DigitalOcean arriba como raíz; de ella cuelgan dos grupos (sin Plesk / Docker) con sus servidores; cada servidor lista sus dominios como ramas. Abajo, lo que vence y lo que se puede limpiar. */
 :root{
   --bg:#f6f4f1; --surface:#ffffff; --fg:#17140f; --muted:#6b645a; --line:#e2ddd5;
   --accent:#ef6a12; --accent-soft:#fde8d8;
@@ -117,17 +117,17 @@ footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); p
 <div class="wrap">
   <header>
     <div>
-      <div class="eyebrow">Inventario · 16/11/2026</div>
+      <div class="eyebrow">Inventario · actualizado 26/11/2026</div>
       <h1>Servidores de <span>Studio Complex</span></h1>
-      <p>Los 4 VPS activos en DigitalOcean (proyecto first-project) y los dominios que tiene cada uno. Datos leídos en cada servidor por SSH y cada dominio probado en vivo.</p>
+      <p>Los 3 VPS activos en DigitalOcean (proyecto first-project) y los dominios que tiene cada uno. Datos leídos hoy en cada servidor por SSH y cada dominio probado en vivo. Desde el 20/11 ya no hay servidores con Plesk.</p>
     </div>
   </header>
 
   <section class="resumen" aria-label="Resumen">
-    <div><b>4</b><small>VPS activos</small></div>
-    <div><b>11</b><small>dominios y subdominios</small></div>
-    <div><b>USD 79–86</b><small>por mes, según backups</small></div>
-    <div class="alerta"><b>2</b><small>licencias de Plesk de prueba por vencer</small></div>
+    <div><b>3</b><small>VPS activos</small></div>
+    <div><b>7</b><small>dominios y subdominios, todos en línea</small></div>
+    <div><b>USD 74,40</b><small>por mes, con backups</small></div>
+    <div class="alerta"><b>3</b><small>servidores esperan un reinicio por el kernel nuevo</small></div>
   </section>
 
   <section aria-label="Esquema de servidores">
@@ -135,44 +135,28 @@ footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); p
     <div style="height:36px"></div>
     <div class="grupos">
 
-      <!-- PLESK -->
+      <!-- SIN PLESK -->
       <div class="grupo">
-        <div class="grupo-tit"><h2>Con Plesk</h2><span>webs de clientes, un cliente por suscripción</span></div>
+        <div class="grupo-tit"><h2>Compartido, sin Plesk</h2><span>Nginx + PHP, un usuario, pool y base por cliente</span></div>
 
         <article class="vps">
           <div class="vps-top">
-            <div><h3>sc-prod-01</h3><div class="rol">Producción de clientes</div></div>
+            <div><h3>sc-prod-02</h3><div class="rol">VPositivo y Dólar Online</div></div>
             <span class="tag prod">Producción</span>
           </div>
-          <div class="ficha"><span>IP <b class="mono">159.65.245.67</b></span><span>NYC3</span><span><b>1 vCPU · 2 GB · 50 GB</b></span><span>USD 14,40/mes</span></div>
+          <div class="ficha"><span>IP <b class="mono">174.138.62.113</b></span><span>NYC3</span><span><b>1 vCPU · 2 GB · 50 GB</b></span><span>USD 14,40/mes</span><span>backups semanales + copia diaria de bases</span></div>
           <div class="medidores">
-            <div class="medidor"><span>Disco<em>24%</em></span><div class="barra"><i style="width:24%"></i></div></div>
-            <div class="medidor"><span>Memoria<em>39%</em></span><div class="barra"><i style="width:39%"></i></div></div>
+            <div class="medidor"><span>Disco<em>14%</em></span><div class="barra"><i style="width:14%"></i></div></div>
+            <div class="medidor"><span>Memoria<em>37%</em></span><div class="barra"><i style="width:37%"></i></div></div>
           </div>
           <ul class="dominios">
-            <li><span class="d prod">vpositivo.com.ar</span><span class="pill ok">En línea</span><span class="nota">con www · cliente VPositivo</span></li>
-            <li><span class="d">centenario.studiocomplex.com.ar</span><span class="pill redir">Redirige</span><span class="nota">dev viejo → centenarioautos.com</span></li>
-          </ul>
-          <div class="licencia"><span>Licencia de prueba · 2 de 3 dominios usados</span><b>Vence 5/12</b></div>
-        </article>
-
-        <article class="vps">
-          <div class="vps-top">
-            <div><h3>plesk-studiocomplex</h3><div class="rol">Desarrollo y pruebas</div></div>
-            <span class="tag">Desarrollo</span>
-          </div>
-          <div class="ficha"><span>IP <b class="mono">157.230.175.211</b></span><span>SFO2</span><span><b>2 GB · 50 GB</b></span><span>~USD 12–14,40/mes</span></div>
-          <div class="medidores">
-            <div class="medidor"><span>Disco<em>20%</em></span><div class="barra"><i style="width:20%"></i></div></div>
-            <div class="medidor"><span>Memoria<em>33%</em></span><div class="barra"><i style="width:33%"></i></div></div>
-          </div>
-          <ul class="dominios">
-            <li><span class="d prod">dolaronline.studiocomplex.com.ar</span><span class="pill ok">En línea</span><span class="nota">Dólar Online</span></li>
+            <li><span class="d prod">vpositivo.com.ar</span><span class="pill ok">En línea</span><span class="nota">con www · desde el 19/11</span></li>
+            <li><span class="d prod">dolaronline.studiocomplex.com.ar</span><span class="pill ok">En línea</span><span class="nota">Dólar Online · desde el 19/11</span></li>
             <li><span class="d">conversor.dolaronline.studiocomplex.com.ar</span><span class="pill ok">En línea</span></li>
             <li><span class="d">notas.dolaronline.studiocomplex.com.ar</span><span class="pill redir">Redirige</span><span class="nota">→ dolaronline</span></li>
-            <li><span class="d">vpositivo.studiocomplex.com.ar</span><span class="pill bad">Suspendido</span><span class="nota">dev viejo, da 503</span></li>
           </ul>
-          <div class="licencia urgente"><span>Licencia de prueba · 2 de 3 dominios usados</span><b>Vence 26/11</b></div>
+          <div class="servicios" aria-label="Servicios"><span>Nginx</span><span>PHP 8.3</span><span>MariaDB</span><span>Node 24</span><span>Let's Encrypt</span></div>
+          <p class="nota" style="margin:0;font-size:12.5px;color:var(--muted)">Guarda también la copia final de los dos servidores con Plesk que se borraron.</p>
         </article>
       </div>
 
@@ -185,10 +169,10 @@ footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); p
             <div><h3>sc-centenario-01</h3><div class="rol">Centenario Automotores: web y asistente</div></div>
             <span class="tag prod">Producción</span>
           </div>
-          <div class="ficha"><span>IP <b class="mono">174.138.65.6</b></span><span>NYC3</span><span><b>2 vCPU · 4 GB · 80 GB</b></span><span>~USD 24–28,80/mes</span></div>
+          <div class="ficha"><span>IP <b class="mono">174.138.65.6</b></span><span>NYC3</span><span><b>2 vCPU · 4 GB · 80 GB</b></span><span>USD 31,20/mes</span><span>backups diarios</span></div>
           <div class="medidores">
-            <div class="medidor"><span>Disco<em>17%</em></span><div class="barra"><i style="width:17%"></i></div></div>
-            <div class="medidor"><span>Memoria<em>58%</em></span><div class="barra"><i style="width:58%"></i></div></div>
+            <div class="medidor"><span>Disco<em>21%</em></span><div class="barra"><i style="width:21%"></i></div></div>
+            <div class="medidor"><span>Memoria<em>51%</em></span><div class="barra"><i style="width:51%"></i></div></div>
           </div>
           <ul class="dominios">
             <li><span class="d prod">centenarioautos.com</span><span class="pill ok">En línea</span><span class="nota">con www · publicada el 15/11</span></li>
@@ -202,10 +186,10 @@ footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); p
             <div><h3>sc-reinale-01</h3><div class="rol">Reinale Pets: asistente de IA</div></div>
             <span class="tag prod">Producción</span>
           </div>
-          <div class="ficha"><span>IP <b class="mono">159.65.167.33</b></span><span>NYC3</span><span><b>2 vCPU · 4 GB · 80 GB</b></span><span>USD 28,80/mes</span></div>
+          <div class="ficha"><span>IP <b class="mono">159.65.167.33</b></span><span>NYC3</span><span><b>2 vCPU · 4 GB · 80 GB</b></span><span>USD 28,80/mes</span><span>backups semanales</span></div>
           <div class="medidores">
-            <div class="medidor"><span>Disco<em>18%</em></span><div class="barra"><i style="width:18%"></i></div></div>
-            <div class="medidor"><span>Memoria<em>52%</em></span><div class="barra"><i style="width:52%"></i></div></div>
+            <div class="medidor"><span>Disco<em>19%</em></span><div class="barra"><i style="width:19%"></i></div></div>
+            <div class="medidor"><span>Memoria<em>55%</em></span><div class="barra"><i style="width:55%"></i></div></div>
           </div>
           <ul class="dominios">
             <li><span class="d prod">atencion-reinale.studiocomplex.com.ar</span><span class="pill ok">En línea</span><span class="nota">Chatwoot + panel</span></li>
@@ -219,21 +203,24 @@ footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); p
 
   <section class="acciones">
     <div class="bloque">
-      <h2>Lo que vence</h2>
-      <div class="linea"><div class="fecha">26/11<small>en 10 días</small></div><div><b>Licencia de Plesk del servidor de desarrollo.</b><p>Ahí está Dólar Online. Hay que comprar la licencia o mover lo que hay adentro.</p></div></div>
-      <div class="linea"><div class="fecha mas">5/12<small>en 19 días</small></div><div><b>Licencia de Plesk de producción.</b><p>Ahí está VPositivo, un cliente real. Es la más delicada.</p></div></div>
+      <h2>Actualizaciones</h2>
+      <p>Los parches de seguridad se instalan solos todas las noches y no queda ninguno pendiente. Lo que falta:</p>
+      <ul>
+        <li><b>Reinicio en los 3 servidores.</b> Ya está instalado el kernel nuevo (6.8.0-151), pero recién se usa al reiniciar. Son unos minutos sin servicio: conviene hacerlo de noche, uno por vez.</li>
+        <li><b>systemd y udev</b> en los 3, y <b>Docker</b> en Centenario y Reinale: son mejoras, no de seguridad. Se aplican junto con el reinicio.</li>
+      </ul>
     </div>
     <div class="bloque">
-      <h2>Se puede limpiar, con OK</h2>
+      <h2>Qué cambió desde el 16/11</h2>
       <ul>
-        <li><b>centenario.studiocomplex.com.ar</b> en sc-prod-01. Ya no se usa: solo redirige a la web nueva y ocupa uno de los 3 lugares de la licencia.</li>
-        <li><b>vpositivo.studiocomplex.com.ar</b> en el servidor de desarrollo. Está suspendido desde que VPositivo pasó a producción.</li>
+        <li>El 19/11 Dólar Online y VPositivo pasaron a <b>sc-prod-02</b>, sin Plesk.</li>
+        <li>El 20/11 se borraron <b>sc-prod-01</b> y el servidor de desarrollo, con sus registros DNS. Ya no hay licencias de Plesk que pagar.</li>
+        <li>De USD 88,80 a <b>USD 74,40</b> por mes. Los costos en pesos están en studiocomplex.com.ar/renovaciones.</li>
       </ul>
-      <p>Hasta ahora no se tocó nada: solo se leyó.</p>
     </div>
   </section>
 
-  <footer>Leído el 16/11/2026 en cada servidor (Plesk, Docker y Caddy) y con una prueba HTTPS de cada dominio. Los costos salen de la lista de precios de DigitalOcean y varían según tengan backups o no.</footer>
+  <footer>Leído el 26/11/2026 en cada servidor (Nginx, Docker y Caddy) y con una prueba HTTPS de cada dominio. Los costos salen de la lista de precios de DigitalOcean e incluyen los backups.</footer>
 </div>
 </body>
 </html>
