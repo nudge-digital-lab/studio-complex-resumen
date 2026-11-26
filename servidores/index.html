@@ -119,14 +119,14 @@ footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); p
     <div>
       <div class="eyebrow">Inventario · actualizado 26/11/2026</div>
       <h1>Servidores de <span>Studio Complex</span></h1>
-      <p>Los 3 VPS activos en DigitalOcean (proyecto first-project) y los dominios que tiene cada uno. Datos leídos hoy en cada servidor por SSH y cada dominio probado en vivo. Desde el 20/11 ya no hay servidores con Plesk.</p>
+      <p>Los 3 VPS de DigitalOcean (proyecto first-project) con los dominios que tiene cada uno, más la VPS de correo de DonWeb. Datos leídos hoy en cada servidor por SSH y cada dominio probado en vivo. Desde el 20/11 ya no hay servidores con Plesk.</p>
     </div>
   </header>
 
   <section class="resumen" aria-label="Resumen">
-    <div><b>3</b><small>VPS activos</small></div>
+    <div><b>4</b><small>VPS: 3 en DigitalOcean y 1 en DonWeb</small></div>
     <div><b>7</b><small>dominios y subdominios, todos en línea</small></div>
-    <div><b>USD 74,40</b><small>por mes, con backups</small></div>
+    <div><b>USD 74,40</b><small>DigitalOcean por mes, más $28.692 de DonWeb</small></div>
     <div><b>Al día</b><small>sistema actualizado y reiniciado el 26/11</small></div>
   </section>
 
@@ -199,6 +199,24 @@ footer{color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); p
         </article>
       </div>
     </div>
+  </section>
+
+  <section aria-label="DonWeb">
+    <div class="grupo-tit" style="margin-bottom:14px"><h2>DonWeb · correo</h2><span>no aloja webs: casillas y salida de mails</span></div>
+    <article class="vps">
+      <div class="vps-top">
+        <div><h3>vps-6513638</h3><div class="rol">Correo de los clientes (Panel Ferozo)</div></div>
+        <span class="tag prod">Producción</span>
+      </div>
+      <div class="ficha"><span>IP <b class="mono">201.32.130.237</b></span><span>Nodo os4</span><span><b>2 vCPU · 4 GB · 20 GB</b></span><span>$28.692/mes</span><span>backup estándar</span><span>vence el 15 de cada mes (próximo 15/12)</span></div>
+      <ul class="dominios">
+        <li><span class="d prod">mail.vpositivo.com.ar</span><span class="pill ok">Correo</span><span class="nota">casillas de VPositivo</span></li>
+        <li><span class="d prod">mail.centenarioautos.com</span><span class="pill ok">Correo</span><span class="nota">casillas de Centenario</span></li>
+        <li><span class="d prod">mail.reinalepets.com</span><span class="pill ok">Correo</span><span class="nota">casillas de Reinale</span></li>
+      </ul>
+      <div class="servicios" aria-label="Servicios"><span>Panel Ferozo</span><span>Alma Linux 8</span><span>Licencia 5 cuentas</span><span>SSH puerto 5907</span></div>
+      <p class="nota" style="margin:0;font-size:12.5px;color:var(--muted)">Los mails de las webs de DigitalOcean salen por acá, porque DigitalOcean bloquea el envío de correo. Los DNS (ns1/ns2.studiocomplex.com.ar) son del reseller de DonWeb.</p>
+    </article>
   </section>
 
   <section class="acciones">
